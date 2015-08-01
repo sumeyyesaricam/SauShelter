@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="turkiyeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_il">
+    <Key>
+      <PropertyRef Name="il_id" />
+    </Key>
+    <Property Name="il_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="il_ad" Type="nvarchar" MaxLength="16" />
+  </EntityType>
+  <EntityType Name="tbl_ilce">
+    <Key>
+      <PropertyRef Name="ilce_id" />
+    </Key>
+    <Property Name="ilce_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="il_id" Type="smallint" Nullable="false" />
+    <Property Name="ilce_ad" Type="nvarchar" MaxLength="32" />
+  </EntityType>
+  <EntityType Name="tbl_mahalle">
+    <Key>
+      <PropertyRef Name="mahalle_id" />
+    </Key>
+    <Property Name="mahalle_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="semt_id" Type="smallint" Nullable="false" />
+    <Property Name="mahalle_ad" Type="nvarchar" MaxLength="40" />
+    <Property Name="pk_id" Type="smallint" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'turkiye.dbo.tbl_pk' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbl_pk">
+    <Key>
+      <PropertyRef Name="pk_id" />
+    </Key>
+    <Property Name="pk_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kod" Type="char" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tbl_semt">
+    <Key>
+      <PropertyRef Name="semt_id" />
+    </Key>
+    <Property Name="semt_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ilce_id" Type="smallint" Nullable="false" />
+    <Property Name="semt_ad" Type="nvarchar" MaxLength="32" />
+  </EntityType>
+  <EntityContainer Name="turkiyeModelStoreContainer">
+    <EntitySet Name="tbl_il" EntityType="Self.tbl_il" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ilce" EntityType="Self.tbl_ilce" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_mahalle" EntityType="Self.tbl_mahalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_semt" EntityType="Self.tbl_semt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_pk" EntityType="Self.tbl_pk" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tbl_pk].[pk_id] AS [pk_id], 
+    [tbl_pk].[kod] AS [kod]
+    FROM [dbo].[tbl_pk] AS [tbl_pk]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

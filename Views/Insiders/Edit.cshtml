@@ -1,0 +1,168 @@
+﻿@model SauShelter.Models.Insider
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Insider</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SURNAME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SURNAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SURNAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+    @Html.LabelFor(model => model.CONFIRMPASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CONFIRMPASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CONFIRMPASSWORD, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BIRTHDATE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BIRTHDATE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BIRTHDATE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+          <div id="formKapsayici">
+            <h3>İletişim Bilgileri</h3>
+            <div id="divSol">
+                @Html.LabelFor(i => Model.Address.CITYID)<br /><br />
+                @Html.LabelFor(i => Model.Address.TOWNID)<br /><br />
+                @Html.LabelFor(i => Model.Address.DISTRICTID)<br /><br />
+
+            </div>
+            <div id="divSag">
+                <select id="il" name="il">
+                    @foreach (var item in ViewBag.City)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select><br /><br />
+                <select id="ilce"></select><br /><br />
+                <select id="mahalle"></select><br /><br />
+            </div>
+
+            <div id="divSSol">
+                @Html.LabelFor(i => Model.PHONENUMBER)<br /><br />
+                @Html.ValidationMessageFor(model => model.PHONENUMBER, "", new { @class = "text-danger" })
+                @Html.LabelFor(i => Model.Address.EXPLANATION)<br /><br />
+            </div>
+
+            <div id="divSSag">
+                : @Html.TextBoxFor(i => Model.PHONENUMBER)<br /><br />
+                : @Html.TextArea("Acıklama")<br /><br />
+            </div>
+            <!--Html.ValidationSummary ile formda oluşan geçerlilik hatalarını liste halinde gösterebiliyoruz.-->
+            @Html.ValidationSummary()
+        </div><br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Kaydet" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <style type="text/css">
+        #formKapsayici {
+            box-shadow: 0 0 5px gray;
+            padding: 25px;
+            height: 300px;
+        }
+
+        #divSol, #divSag {
+            float: left;
+            margin-left: 25px;
+        }
+
+            #divSol *, #divSag * {
+                margin-top: 15px;
+            }
+
+        #divSSol, #divSSag {
+            float: left;
+            margin-left: 25px;
+        }
+
+            #divSSol *, #divSSag * {
+                margin-top: 15px;
+            }
+
+        input[type="text"] {
+            width: 250px;
+        }
+    </style>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+           $("#il").change(function () {
+            var depid = $(this).val();
+            $('#secimil').val(depid);
+            if (depid.length > 0) {
+                $.getJSON('/Insiders/GetirIlceler/' + depid, function (data) {
+                    $("#ilce").children().remove();
+                    for (i = 0; i < data.length; i++) {
+                        $("#ilce").append('<option value="' + data[i].Id + '">' + data[i].Ad + '</option>');
+                    }
+                })
+            }
+        });
+        $("#ilce").change(function () {
+            var depid = $(this).val();
+            $('#secimilce').val(depid);
+            if (depid.length > 0) {
+                $.getJSON('/Insiders/GetirMahalle/' + depid, function (data) {
+                    $("#mahalle").children().remove();
+                    for (i = 0; i < data.length; i++) {
+                        $("#mahalle").append('<option value="' + data[i].Id + '">' + data[i].Ad + '</option>');
+                    }
+                })
+            }
+        });
+        $("#mahalle").change(function () {
+            var depid = $(this).val();
+            $('#secimMahalle').val(depid);
+         });
+    </script>
+}

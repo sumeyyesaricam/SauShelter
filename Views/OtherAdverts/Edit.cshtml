@@ -1,0 +1,121 @@
+﻿@model SauShelter.Models.OtherAdvert
+
+@{
+    ViewBag.Title = "Edit";
+}
+<h2>İlan Güncelle</h2>
+
+@using (Html.BeginForm("Edit", "OtherAdverts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.OTYPEID, "İlan Türü", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OTYPEID", "İlan Türü")
+                @Html.ValidationMessageFor(model => model.OTYPEID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TYPEID, "Türü", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TYPEID", "Türü")
+                @Html.ValidationMessageFor(model => model.TYPEID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+
+        <div class="span6">
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left"><h4>EMLAK ÖZELLİKLERİ</h4></div>
+                </div>
+                <div class="block-content collapse in">
+                    <div class="span12" style="padding-bottom:30px;">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TITLE, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.TITLE, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TITLE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EXPLANATION, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextAreaFor(model => model.EXPLANATION, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EXPLANATION, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.COST, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(model => model.COST, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.COST, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <div class="span5">
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left"><h4>RESİM</h4></div>
+                </div>
+                <div class="block-content collapse in">
+                    <div class="span12" style="padding-bottom:30px;">
+                        <img src="~/Images/@(Model.ID).jpg" id="rsm" style="width: 300px; height: 150px;" />
+                    </div>
+                    <input id="rsmdgstr" class="btn-danger" value="Resmi değiştir." />
+                </div>
+                <div id="sil" hidden>
+                    <input type="file" id="uploadfile" name="uploadfile" /> <br /><br />
+                </div>
+                <input type="submit" value="Kaydet" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}
+@section scripts{
+    <style type="text/css">
+        #formKapsayici {
+            box-shadow: 0 0 5px gray;
+            padding: 25px;
+            height: 300px;
+        }
+
+        #divSol, #divSag {
+            float: left;
+            margin-left: 25px;
+        }
+
+            #divSol *, #divSag * {
+                margin-top: 15px;
+            }
+
+        #divSSol, #divSSag {
+            float: left;
+            margin-left: 25px;
+        }
+
+            #divSSol *, #divSSag * {
+                margin-top: 15px;
+            }
+
+        input[type="text"] {
+            width: 250px;
+        }
+    </style>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $("#rsmdgstr").click(function () {
+            $("#rsm").hide("slow");
+            $("#rsmdgstr").hide("slow");
+            $("#sil").show();
+        });
+    </script>
+}

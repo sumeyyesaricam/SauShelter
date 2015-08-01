@@ -1,0 +1,299 @@
+﻿@model SauShelter.Models.Advert
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>İlan Oluştur</h2>
+
+@using (Html.BeginForm("Create", "Advert", FormMethod.Post, new { enctype = "multipart/form-data"})) 
+{
+    @Html.Hidden("secimil")
+    @Html.Hidden("secimilce")
+    @Html.Hidden("secimMahalle")
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>İlan</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ATYPEID, "İlan Türü", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ATYPEID", "İlan Türü")
+                @Html.ValidationMessageFor(model => model.ATYPEID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TYPID, "Türü", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TYPID", "Türü")
+                @Html.ValidationMessageFor(model => model.TYPID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="span11">
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left"><h4>İLETİŞİM BİLGİLERİ</h4></div>
+                </div>
+                <div class="block-content collapse in">
+                    @Html.Label("Cep Telofonu")<br />
+                    @ViewBag.Telefon<br />
+                    <a href="~/Insiders/Edit/@ViewBag.AID"><label>İletişim Bilgilerini Güncelle.</label></a>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left"><h4>EMLAK ÖZELLİKLERİ</h4></div>
+                </div>
+                <div class="block-content collapse in">
+                    <div class="span12" style="padding-bottom:30px;">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TITLE, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.TITLE, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TITLE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EXPLANATION, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextAreaFor(model => model.EXPLANATION, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EXPLANATION, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ROOMCOUNTID, "Oda Sayısı", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.DropDownList("ROOMCOUNTID", "Oda Sayısı")
+                                @Html.ValidationMessageFor(model => model.ROOMCOUNTID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FLOORID, "Bulunduğu Kat", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.DropDownList("FLOORID", "Bulunduğu Kat")
+                                @Html.ValidationMessageFor(model => model.FLOORID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HEATINGID, "Isıtma Sistemi", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.DropDownList("HEATINGID", "Isıtma Sistemi")
+                                @Html.ValidationMessageFor(model => model.HEATINGID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BATHCOUNT, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(model => model.BATHCOUNT, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.BATHCOUNT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.COST, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(model => model.COST, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.COST, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PERSONCOUNT, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(model => model.PERSONCOUNT, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PERSONCOUNT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BALCONY, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.RadioButtonFor(model => model.BALCONY, true) Var
+                                @Html.RadioButtonFor(model => model.BALCONY, false) Yok
+                                @Html.ValidationMessageFor(model => model.BALCONY, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.GARDEN, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    @Html.RadioButtonFor(model => model.GARDEN, true) Var
+                                    @Html.RadioButtonFor(model => model.GARDEN, false) Yok
+                                    @Html.ValidationMessageFor(model => model.GARDEN, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CONSTRUCTIONDATE, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.CONSTRUCTIONDATE, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CONSTRUCTIONDATE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MONTHLYFEE, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(model => model.MONTHLYFEE, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MONTHLYFEE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FULLYFURNISHED, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    @Html.RadioButtonFor(model => model.FULLYFURNISHED, true) Var
+                                    @Html.RadioButtonFor(model => model.FULLYFURNISHED, false) Yok
+                                    @Html.ValidationMessageFor(model => model.FULLYFURNISHED, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SQUAREFEET, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextBoxFor(model => model.SQUAREFEET, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SQUAREFEET, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TIMEID, "İlan Süresi", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.DropDownList("TIMEID", "İlan Süresi")
+                                @Html.ValidationMessageFor(model => model.TIMEID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.OTHER, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.OTHER, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.OTHER, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="span5">
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left"><h4>ADRES BİLGİLERİ</h4></div>
+                </div>
+                <div class="block-content collapse in">
+                    <div class="span12" style="padding-bottom:30px;">
+                        <div class="form-group">
+                            <div id="divSol">
+                                @Html.LabelFor(i => Model.Address.CITYID)<br /><br />
+                                @Html.LabelFor(i => Model.Address.TOWNID)<br /><br />
+                                @Html.LabelFor(i => Model.Address.DISTRICTID)<br /><br />
+                                @Html.Label("ADRES")
+                            </div>
+                            <div id="divSag">
+                                <select id="il" name="il">
+                                    @foreach (var item in ViewBag.City)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select><br /><br />
+                                <select id="ilce"></select><br /><br />
+                                <select id="mahalle"></select><br /><br />
+                                @Html.TextArea("Acıklama", new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <div class="span5">
+                            <div class="block">
+                                <div class="navbar navbar-inner block-header">
+                                    <div class="muted pull-left"><h4>RESİM</h4></div>
+                                </div>
+                                <div class="block-content collapse in">
+                                            <input type="file" id="uploadfile" name="uploadfile" /> <br /><br />
+                                                <input type="submit" value="Kaydet" class="btn btn-danger" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+}
+@section scripts{
+    <style type="text/css">
+        #formKapsayici {
+            box-shadow: 0 0 5px gray;
+            padding: 25px;
+            height: 300px;
+        }
+
+        #divSol, #divSag {
+            float: left;
+            margin-left: 25px;
+        }
+
+            #divSol *, #divSag * {
+                margin-top: 15px;
+            }
+
+        #divSSol, #divSSag {
+            float: left;
+            margin-left: 25px;
+        }
+
+            #divSSol *, #divSSag * {
+                margin-top: 15px;
+            }
+
+        input[type="text"] {
+            width: 250px;
+        }
+    </style>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $("#il").change(function () {
+            var depid = $(this).val();
+            $('#secimil').val(depid);
+            if (depid.length > 0) {
+                $.getJSON('/Insiders/GetirIlceler/' + depid, function (data) {
+                    $("#ilce").children().remove();
+                    for (i = 0; i < data.length; i++) {
+                        $("#ilce").append('<option value="' + data[i].Id + '">' + data[i].Ad + '</option>');
+                    }
+                })
+            }
+        });
+        $("#ilce").change(function () {
+            var depid = $(this).val();
+            $('#secimilce').val(depid);
+            if (depid.length > 0) {
+                $.getJSON('/Insiders/GetirMahalle/' + depid, function (data) {
+                    $("#mahalle").children().remove();
+                    for (i = 0; i < data.length; i++) {
+                        $("#mahalle").append('<option value="' + data[i].Id + '">' + data[i].Ad + '</option>');
+                    }
+                })
+            }
+        });
+        $("#mahalle").change(function () {
+            var depid = $(this).val();
+            $('#secimMahalle').val(depid);
+        });
+    </script>
+}

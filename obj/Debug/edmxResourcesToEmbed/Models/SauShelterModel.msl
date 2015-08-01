@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SauShelterModelStoreContainer" CdmEntityContainer="SauShelterEntities">
+    <EntitySetMapping Name="Address">
+      <EntityTypeMapping TypeName="SauShelterModel.Address">
+        <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="DISTRICTID" ColumnName="DISTRICTID" />
+          <ScalarProperty Name="TOWNID" ColumnName="TOWNID" />
+          <ScalarProperty Name="CITYID" ColumnName="CITYID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EXPLANATION" ColumnName="EXPLANATION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Advert">
+      <EntityTypeMapping TypeName="SauShelterModel.Advert">
+        <MappingFragment StoreEntitySet="Advert">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ADVERTDATE" ColumnName="ADVERTDATE" />
+          <ScalarProperty Name="ROOMCOUNTID" ColumnName="ROOMCOUNTID" />
+          <ScalarProperty Name="FLOORID" ColumnName="FLOORID" />
+          <ScalarProperty Name="HEATINGID" ColumnName="HEATINGID" />
+          <ScalarProperty Name="EXPLANATION" ColumnName="EXPLANATION" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="BATHCOUNT" ColumnName="BATHCOUNT" />
+          <ScalarProperty Name="COST" ColumnName="COST" />
+          <ScalarProperty Name="PERSONCOUNT" ColumnName="PERSONCOUNT" />
+          <ScalarProperty Name="ATYPEID" ColumnName="ATYPEID" />
+          <ScalarProperty Name="BALCONY" ColumnName="BALCONY" />
+          <ScalarProperty Name="GARDEN" ColumnName="GARDEN" />
+          <ScalarProperty Name="CONSTRUCTIONDATE" ColumnName="CONSTRUCTIONDATE" />
+          <ScalarProperty Name="ADDRESSID" ColumnName="ADDRESSID" />
+          <ScalarProperty Name="MONTHLYFEE" ColumnName="MONTHLYFEE" />
+          <ScalarProperty Name="FULLYFURNISHED" ColumnName="FULLYFURNISHED" />
+          <ScalarProperty Name="SQUAREFEET" ColumnName="SQUAREFEET" />
+          <ScalarProperty Name="TYPID" ColumnName="TYPID" />
+          <ScalarProperty Name="OWNERID" ColumnName="OWNERID" />
+          <ScalarProperty Name="TIMEID" ColumnName="TIMEID" />
+          <ScalarProperty Name="OTHER" ColumnName="OTHER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdvertType">
+      <EntityTypeMapping TypeName="SauShelterModel.AdvertType">
+        <MappingFragment StoreEntitySet="AdvertType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApartmentFloor">
+      <EntityTypeMapping TypeName="SauShelterModel.ApartmentFloor">
+        <MappingFragment StoreEntitySet="ApartmentFloor">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliveryTime">
+      <EntityTypeMapping TypeName="SauShelterModel.DeliveryTime">
+        <MappingFragment StoreEntitySet="DeliveryTime">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Heating">
+      <EntityTypeMapping TypeName="SauShelterModel.Heating">
+        <MappingFragment StoreEntitySet="Heating">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Insider">
+      <EntityTypeMapping TypeName="SauShelterModel.Insider">
+        <MappingFragment StoreEntitySet="Insider">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PHONENUMBER" ColumnName="PHONENUMBER" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="ADDRESSID" ColumnName="ADDRESSID" />
+          <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+          <ScalarProperty Name="CONFIRMPASSWORD" ColumnName="CONFIRMPASSWORD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OtherAdvert">
+      <EntityTypeMapping TypeName="SauShelterModel.OtherAdvert">
+        <MappingFragment StoreEntitySet="OtherAdvert">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="OTYPEID" ColumnName="OTYPEID" />
+          <ScalarProperty Name="ADVERTDATE" ColumnName="ADVERTDATE" />
+          <ScalarProperty Name="EXPLANATION" ColumnName="EXPLANATION" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+          <ScalarProperty Name="COST" ColumnName="COST" />
+          <ScalarProperty Name="OWNERID" ColumnName="OWNERID" />
+          <ScalarProperty Name="TYPEID" ColumnName="TYPEID" />
+          <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OtherTypes">
+      <EntityTypeMapping TypeName="SauShelterModel.OtherTypes">
+        <MappingFragment StoreEntitySet="OtherTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoomCount">
+      <EntityTypeMapping TypeName="SauShelterModel.RoomCount">
+        <MappingFragment StoreEntitySet="RoomCount">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SauShelterModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Type">
+      <EntityTypeMapping TypeName="SauShelterModel.Type">
+        <MappingFragment StoreEntitySet="Type">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

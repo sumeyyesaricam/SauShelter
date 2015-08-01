@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "SideBar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="span3" id="sidebar">
+    @using (Html.BeginForm())
+    {
+        <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+            <li class="active">
+                <a href="index.html"><i class="icon-chevron-right"></i> Fiyat Aralığı</a><br />
+                @Html.TextBox("EnDusuk", "En Düşük")
+                @Html.TextBox("EnYuksek", "En Yüksek")
+            </li>
+            @*<li class="active">
+                <a href="calendar.html"><i class="icon-chevron-right"></i>Oda Sayısı</a>
+                @Html.DropDownList("OdaSayisi", "Oda Sayısı")
+            </li>
+            <li class="active">
+                <a href="stats.html"><i class="icon-chevron-right"></i>İl</a>
+                @Html.DropDownList("Sehir", "İl")
+            </li>
+            <li class="active">
+                <a href="stats.html"><i class="icon-chevron-right"></i>İlçe</a>
+                @Html.DropDownList("Ilce", "İlçe")
+            </li>*@
+        </ul>
+        <button class="btn btn-danger btn-large">Araştır</button>
+    }
+</div>
+
+
+

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SauShelter.Models.OtherAdvert>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>İlanlarım</h2>
+
+<p>
+    @Html.ActionLink("Yeni İlan", "Create")
+</p>
+@if (@ViewBag.ilanmsj != null)
+{
+    @ViewBag.ilanmsj
+    <a href="~/OtherAdverts/Create"><button class="btn-danger"> İlan ver. </button></a>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                RESİM
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TITLE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADVERTDATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.COST)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    <a href='@Url.Action("Details", "Adverts", new {id=item.ID })'>
+                        <img src="~/Images/@(item.ID).jpg" width="200px" height="200px" />
+                    </a>
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TITLE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADVERTDATE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.COST)
+                </td>
+                <td>
+                    <a href='@Url.Action("Edit", "OtherAdverts", new { id = item.ID })'>
+                        <button class="btn btn-primary"><i class="icon-pencil icon-white"></i>Düzenle</button>
+                    </a>
+                    <a href='@Url.Action("Details", "OtherAdverts", new { id = item.ID })'>
+                        <button class="btn"><i class="icon-eye-open"></i>Ön İzleme</button>
+                    </a>
+
+                    @using (Html.BeginForm("Delete", "OtherAdverts", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("did", item.ID)
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-danger " onclick="return onay();">
+                                    <i class="icon-remove icon-white"></i> Silme
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+<script type="text/javascript">
+    function onay() {
+        var answer = confirm("Emin misiniz ?")
+        if (answer) {
+            alert("Silindi")
+            return true;
+            document.formumuz.submit();
+        } else {
+            return false;
+        }
+    }
+</script>

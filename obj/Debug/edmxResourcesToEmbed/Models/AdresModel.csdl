@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="turkiyeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_il">
+    <Key>
+      <PropertyRef Name="il_id" />
+    </Key>
+    <Property Name="il_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="il_ad" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_ilce">
+    <Key>
+      <PropertyRef Name="ilce_id" />
+    </Key>
+    <Property Name="ilce_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="il_id" Type="Int16" Nullable="false" />
+    <Property Name="ilce_ad" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_mahalle">
+    <Key>
+      <PropertyRef Name="mahalle_id" />
+    </Key>
+    <Property Name="mahalle_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="semt_id" Type="Int16" Nullable="false" />
+    <Property Name="mahalle_ad" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="pk_id" Type="Int16" />
+  </EntityType>
+  <EntityType Name="tbl_semt">
+    <Key>
+      <PropertyRef Name="semt_id" />
+    </Key>
+    <Property Name="semt_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ilce_id" Type="Int16" Nullable="false" />
+    <Property Name="semt_ad" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_pk">
+    <Key>
+      <PropertyRef Name="pk_id" />
+    </Key>
+    <Property Name="pk_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kod" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="turkiyeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_il" EntityType="Self.tbl_il" />
+    <EntitySet Name="tbl_ilce" EntityType="Self.tbl_ilce" />
+    <EntitySet Name="tbl_mahalle" EntityType="Self.tbl_mahalle" />
+    <EntitySet Name="tbl_semt" EntityType="Self.tbl_semt" />
+    <EntitySet Name="tbl_pk" EntityType="Self.tbl_pk" />
+  </EntityContainer>
+</Schema>

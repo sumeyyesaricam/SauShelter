@@ -1,0 +1,105 @@
+﻿@model  IEnumerable<SauShelter.Models.Advert>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            @using (Html.BeginForm())
+            {
+                <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                    <li class="active">
+                        <a href="index.html"><i class="icon-chevron-right"></i> Fiyat Aralığı</a><br />
+                        @Html.TextBox("EnDusuk", "En Düşük")
+                        @Html.TextBox("EnYuksek", "En Yüksek")
+                    </li>
+                    <li class="active">
+                            <a href="calendar.html"><i class="icon-chevron-right"></i>Oda Sayısı</a>
+                            @Html.DropDownList("OdaSayisi","Oda Sayısı")
+                        </li>
+                        <li class="active">
+                            <a href="stats.html"><i class="icon-chevron-right"></i>İl</a>
+                            <select id="il" name="il">
+                                @foreach (var item in ViewBag.City)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select><br /><br />                         
+                        </li>
+                        <li class="active">
+                            <a href="stats.html"><i class="icon-chevron-right"></i>İlçe</a>
+                            <select id="ilce"></select><br /><br />
+                        </li>
+                </ul>
+                <button class="btn btn-danger btn-large">Araştır</button>
+            }
+        </div>
+        <div class="span9" id="content">
+            <div class="row-fluid">
+                <div class="">
+                    <h3>En Yeni İlanlar</h3>
+                    <div id="">
+                        <marquee>
+                            <img src="~/Images/11.jpg" width="300" height="500" />
+                            <img src="~/Images/22.jpg" width="400" height="500" />
+                        </marquee>
+                    </div>
+                </div>
+
+                <div class="block">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left">İlanlar</div>
+                            <div class="pull-right">
+                                <span class="badge badge-info">
+                                    <i class="icon-search"></i>
+                                    @Html.TextBox("AdvertName")
+                                    <button>Ara</button>
+                                </span>
+                            </div>
+                        </div>
+                    }
+                    <div class="block-content collapse in">
+                        <div class="row-fluid padd-bottom">
+                            @ViewBag.Mesaj
+                            @foreach (var item in Model)
+                            {<div class="span3">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>
+                                            <a href='@Url.Action("Details", "Advert", new {id=item.ID })'>
+                                                <img src="~/Images/@(item.ID).jpg" style="width: 500px; height: 200px;" />
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>- @item.TITLE</td>
+                                    </tr>
+                                    <tr>
+                                        <td>- @item.COST TL</td>
+                                    </tr>                                  
+                                </table>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+           $("#il").change(function () {
+            var depid = $(this).val();
+            $('#secimil').val(depid);
+            if (depid.length > 0) {
+                $.getJSON('/Insiders/GetirIlceler/' + depid, function (data) {
+                    $("#ilce").children().remove();
+                    for (i = 0; i < data.length; i++) {
+                        $("#ilce").append('<option value="' + data[i].Id + '">' + data[i].Ad + '</option>');
+                    }
+                })
+            }
+        });
+</script>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="turkiyeModelStoreContainer" CdmEntityContainer="turkiyeEntities">
+    <EntitySetMapping Name="tbl_il">
+      <EntityTypeMapping TypeName="turkiyeModel.tbl_il">
+        <MappingFragment StoreEntitySet="tbl_il">
+          <ScalarProperty Name="il_id" ColumnName="il_id" />
+          <ScalarProperty Name="il_ad" ColumnName="il_ad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ilce">
+      <EntityTypeMapping TypeName="turkiyeModel.tbl_ilce">
+        <MappingFragment StoreEntitySet="tbl_ilce">
+          <ScalarProperty Name="ilce_id" ColumnName="ilce_id" />
+          <ScalarProperty Name="il_id" ColumnName="il_id" />
+          <ScalarProperty Name="ilce_ad" ColumnName="ilce_ad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_mahalle">
+      <EntityTypeMapping TypeName="turkiyeModel.tbl_mahalle">
+        <MappingFragment StoreEntitySet="tbl_mahalle">
+          <ScalarProperty Name="mahalle_id" ColumnName="mahalle_id" />
+          <ScalarProperty Name="semt_id" ColumnName="semt_id" />
+          <ScalarProperty Name="mahalle_ad" ColumnName="mahalle_ad" />
+          <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_semt">
+      <EntityTypeMapping TypeName="turkiyeModel.tbl_semt">
+        <MappingFragment StoreEntitySet="tbl_semt">
+          <ScalarProperty Name="semt_id" ColumnName="semt_id" />
+          <ScalarProperty Name="ilce_id" ColumnName="ilce_id" />
+          <ScalarProperty Name="semt_ad" ColumnName="semt_ad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_pk">
+      <EntityTypeMapping TypeName="turkiyeModel.tbl_pk">
+        <MappingFragment StoreEntitySet="tbl_pk">
+          <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+          <ScalarProperty Name="kod" ColumnName="kod" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

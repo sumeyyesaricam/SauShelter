@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bfdc539393864a1fb3f0ea40b4810921" Name="Diagram1">
+        <EntityTypeShape EntityType="SauShelterModel.Address" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.Advert" Width="1.5" PointX="5.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.AdvertType" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.ApartmentFloor" Width="1.5" PointX="7.875" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.DeliveryTime" Width="1.5" PointX="1.625" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.Heating" Width="1.5" PointX="5.625" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.Insider" Width="1.5" PointX="7.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.OtherAdvert" Width="1.5" PointX="0.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.OtherTypes" Width="1.5" PointX="3.375" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.RoomCount" Width="1.5" PointX="0.625" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SauShelterModel.Type" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Insider_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_AdvertType" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_ApartmentFloor" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_DeliveryTime" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_Heating" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_Insider" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_RoomCount" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_Advert_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_OtherAdvert_Insider" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_OtherAdvert_OtherTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_OtherAdvert_Type" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

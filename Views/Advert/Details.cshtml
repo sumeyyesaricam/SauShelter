@@ -1,0 +1,272 @@
+﻿@model SauShelter.Models.Advert
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>İlan Detayı</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.TITLE)</h4>
+    <hr />
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span9" id="sidebar">
+                <div class="span6">
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left"><h4>Resimler</h4></div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <div class="span12" style="padding-bottom:30px;">
+                                <img src="~/Images/@(Model.ID).jpg" style="width: 500px; height: 300px;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <div class="muted pull-left"><h4>İlan Özellikleri</h4></div>
+                        </div>
+                        <div class="block-content collapse in">
+                            <div class="span12" style="padding-bottom:30px;">
+                                <table width=" 267" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.COST):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.COST)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.ADVERTDATE):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.ADVERTDATE)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.OWNERID):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.Insider.NAME)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.SQUAREFEET):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.SQUAREFEET)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.ROOMCOUNTID):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.RoomCount.NAME)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.AdvertType.NAME):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.AdvertType.NAME)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.PERSONCOUNT):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.PERSONCOUNT)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.TYPID):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.Type.NAME)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.BATHCOUNT):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.BATHCOUNT)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.CONSTRUCTIONDATE):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.CONSTRUCTIONDATE)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.FLOORID):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.ApartmentFloor.NAME)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.HEATINGID):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.Heating.NAME)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.FULLYFURNISHED)
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                  @if (Model.FULLYFURNISHED == null)
+                                                  {
+                                                      <label>---</label>
+                                                  }
+                                                  else
+                                                  {
+                                                      @Html.DisplayFor(model => model.FULLYFURNISHED)
+                                                  }
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.TIMEID):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.DeliveryTime.NAME)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.MONTHLYFEE):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.MONTHLYFEE)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="116" align="left" valign="top">
+                                            @Html.DisplayNameFor(model => model.EXPLANATION):
+                                        </td>
+                                        <td width="144" align="left" valign="top">
+                                            : <strong>
+                                                @Html.DisplayFor(model => model.EXPLANATION)
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left"><h4>İlan Sahibi</h4></div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12" style="padding-bottom:30px;">                   
+                                @Html.DisplayNameFor(model => model.Insider.NAME) <br />
+                                @Html.DisplayFor(model => model.Insider.NAME) 
+                                @Html.DisplayFor(model => model.Insider.SURNAME)<br />                           
+                                <i class="icon-headphones"></i>
+                                @Html.DisplayNameFor(model => model.Insider.PHONENUMBER)<br />
+                                @Html.DisplayFor(model => model.Insider.PHONENUMBER)<br />                            
+                                @Html.DisplayNameFor(model => model.Insider.EMAIL)<br />
+                                @Html.DisplayFor(model => model.Insider.EMAIL)<br />                          
+                            <a href="~/Advert/Message"><button class="btn-danger">Mesaj Gönder</button></a>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+    <div class="span9">
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left"><h4>Adres Bilgileri</h4></div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12" style="padding-bottom:30px;">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Address.CITYID):
+                        </dt>
+
+                        <dd>
+                            @ViewBag.Sehir
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Address.TOWNID):
+                        </dt>
+
+                        <dd>
+                            @ViewBag.İlce
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Address.DISTRICTID):
+                        </dt>
+
+                        <dd>
+                            @ViewBag.Mahalle
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Address.EXPLANATION):
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Address.EXPLANATION)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

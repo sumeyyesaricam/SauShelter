@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SauShelterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="EXPLANATION" Type="nvarchar(max)" />
+    <Property Name="CITYID" Type="int" />
+    <Property Name="TOWNID" Type="int" />
+    <Property Name="DISTRICTID" Type="int" />
+  </EntityType>
+  <EntityType Name="Advert">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ADVERTDATE" Type="date" Nullable="false" />
+    <Property Name="ROOMCOUNTID" Type="uniqueidentifier" />
+    <Property Name="FLOORID" Type="uniqueidentifier" />
+    <Property Name="HEATINGID" Type="uniqueidentifier" />
+    <Property Name="EXPLANATION" Type="nvarchar(max)" />
+    <Property Name="TITLE" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BATHCOUNT" Type="int" />
+    <Property Name="COST" Type="int" />
+    <Property Name="PERSONCOUNT" Type="int" />
+    <Property Name="ATYPEID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BALCONY" Type="bit" />
+    <Property Name="GARDEN" Type="bit" />
+    <Property Name="CONSTRUCTIONDATE" Type="date" />
+    <Property Name="ADDRESSID" Type="uniqueidentifier" />
+    <Property Name="MONTHLYFEE" Type="int" />
+    <Property Name="FULLYFURNISHED" Type="bit" />
+    <Property Name="SQUAREFEET" Type="int" />
+    <Property Name="TYPID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OWNERID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TIMEID" Type="uniqueidentifier" />
+    <Property Name="OTHER" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AdvertType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ApartmentFloor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DeliveryTime">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Heating">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Insider">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMAIL" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PHONENUMBER" Type="varchar(max)" Nullable="false" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BIRTHDATE" Type="date" Nullable="false" />
+    <Property Name="GENDER" Type="bit" />
+    <Property Name="ADDRESSID" Type="uniqueidentifier" />
+    <Property Name="SURNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CONFIRMPASSWORD" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OtherAdvert">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OTYPEID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ADVERTDATE" Type="date" Nullable="false" />
+    <Property Name="EXPLANATION" Type="nvarchar(max)" />
+    <Property Name="TITLE" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="COST" Type="int" Nullable="false" />
+    <Property Name="OWNERID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TYPEID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IMAGE" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="OtherTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoomCount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Advert_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="ADDRESSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Advert_AdvertType">
+    <End Role="AdvertType" Type="Self.AdvertType" Multiplicity="1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdvertType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="ATYPEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Advert_ApartmentFloor">
+    <End Role="ApartmentFloor" Type="Self.ApartmentFloor" Multiplicity="0..1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApartmentFloor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="FLOORID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Advert_DeliveryTime">
+    <End Role="DeliveryTime" Type="Self.DeliveryTime" Multiplicity="0..1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeliveryTime">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="TIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Advert_Heating">
+    <End Role="Heating" Type="Self.Heating" Multiplicity="0..1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Heating">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="HEATINGID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Advert_Insider">
+    <End Role="Insider" Type="Self.Insider" Multiplicity="1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Insider">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="OWNERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Advert_RoomCount">
+    <End Role="RoomCount" Type="Self.RoomCount" Multiplicity="0..1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoomCount">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="ROOMCOUNTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Advert_Type">
+    <End Role="Type" Type="Self.Type" Multiplicity="1" />
+    <End Role="Advert" Type="Self.Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="TYPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Insider_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="Insider" Type="Self.Insider" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Insider">
+        <PropertyRef Name="ADDRESSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherAdvert_Insider">
+    <End Role="Insider" Type="Self.Insider" Multiplicity="1" />
+    <End Role="OtherAdvert" Type="Self.OtherAdvert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Insider">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OtherAdvert">
+        <PropertyRef Name="OWNERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherAdvert_OtherTypes">
+    <End Role="OtherTypes" Type="Self.OtherTypes" Multiplicity="1" />
+    <End Role="OtherAdvert" Type="Self.OtherAdvert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OtherTypes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OtherAdvert">
+        <PropertyRef Name="OTYPEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OtherAdvert_Type">
+    <End Role="Type" Type="Self.Type" Multiplicity="1" />
+    <End Role="OtherAdvert" Type="Self.OtherAdvert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OtherAdvert">
+        <PropertyRef Name="TYPEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SauShelterModelStoreContainer">
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Advert" EntityType="Self.Advert" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdvertType" EntityType="Self.AdvertType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ApartmentFloor" EntityType="Self.ApartmentFloor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DeliveryTime" EntityType="Self.DeliveryTime" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Heating" EntityType="Self.Heating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Insider" EntityType="Self.Insider" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherAdvert" EntityType="Self.OtherAdvert" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherTypes" EntityType="Self.OtherTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoomCount" EntityType="Self.RoomCount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Advert_Address" Association="Self.FK_Advert_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Advert_AdvertType" Association="Self.FK_Advert_AdvertType">
+      <End Role="AdvertType" EntitySet="AdvertType" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Advert_ApartmentFloor" Association="Self.FK_Advert_ApartmentFloor">
+      <End Role="ApartmentFloor" EntitySet="ApartmentFloor" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Advert_DeliveryTime" Association="Self.FK_Advert_DeliveryTime">
+      <End Role="DeliveryTime" EntitySet="DeliveryTime" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Advert_Heating" Association="Self.FK_Advert_Heating">
+      <End Role="Heating" EntitySet="Heating" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Advert_Insider" Association="Self.FK_Advert_Insider">
+      <End Role="Insider" EntitySet="Insider" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Advert_RoomCount" Association="Self.FK_Advert_RoomCount">
+      <End Role="RoomCount" EntitySet="RoomCount" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Advert_Type" Association="Self.FK_Advert_Type">
+      <End Role="Type" EntitySet="Type" />
+      <End Role="Advert" EntitySet="Advert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Insider_Address" Association="Self.FK_Insider_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Insider" EntitySet="Insider" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherAdvert_Insider" Association="Self.FK_OtherAdvert_Insider">
+      <End Role="Insider" EntitySet="Insider" />
+      <End Role="OtherAdvert" EntitySet="OtherAdvert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherAdvert_OtherTypes" Association="Self.FK_OtherAdvert_OtherTypes">
+      <End Role="OtherTypes" EntitySet="OtherTypes" />
+      <End Role="OtherAdvert" EntitySet="OtherAdvert" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherAdvert_Type" Association="Self.FK_OtherAdvert_Type">
+      <End Role="Type" EntitySet="Type" />
+      <End Role="OtherAdvert" EntitySet="OtherAdvert" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

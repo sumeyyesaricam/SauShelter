@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<script src="~/Content/Bootstrap-Admin-Theme-master/assets/scripts.js"></script>*@
+    <link href="~/Content/Bootstrap-Admin-Theme-master/assets/styles.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap-Admin-Theme-master/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    @*<script src="~/Content/Bootstrap-Admin-Theme-master/bootstrap/js/bootstrap.min.js"></script>*@
+    <link href="~/Content/Bootstrap-Admin-Theme-master/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap-Admin-Theme-master/vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" />
+    @*<script src="~/Content/Bootstrap-Admin-Theme-master/vendors/easypiechart/jquery.easy-pie-chart.js"></script>*@
+    <script src="~/Content/Bootstrap-Admin-Theme-master/vendors/jquery-1.9.1.min.js"></script>
+    <link href="~/Content/Bootstrap-Admin-Theme-master/vendors/tinymce/js/tinymce/skins/lightgray/skin.min.css" rel="stylesheet" />
+    <script src="~/Content/Bootstrap-Admin-Theme-master/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <link href="~/Content/Bootstrap-Admin-Theme-master/vendors/bootstrap-wysihtml5/lib/css/wysiwyg-color.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap-Admin-Theme-master/vendors/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css" rel="stylesheet" />
+    <script src="~/Content/Bootstrap-Admin-Theme-master/vendors/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.js"></script>
+    <script src="~/Content/Bootstrap-Admin-Theme-master/vendors/tinymce/js/tinymce/tinymce.min.js"></script>
+    @*<link href="~/Content/ace.min.css" rel="stylesheet" />*@
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="/Home/Index">Sakaryadaki İlanlar</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav pull-right">                     
+                        @Html.Partial("_LoginPartial")
+                    </ul>
+                    <ul class="nav">
+                        <li class="active">
+                            <a href='@Url.Action("Index", "Home", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba6" })'><i class="icon-home"></i>EV</a>
+                        </li>
+                        <li class="active">
+                            <a href='@Url.Action("Index", "Home", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba7" })'>
+                                APART
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href='@Url.Action("Index", "Home", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba8" })'>
+                                YURT
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href='@Url.Action("Index", "Home")' role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                DİĞER İLANLAR <i class="caret"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba9" })'>Ev Eşyaları</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba1" })'>Ev Arkadaşı</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba2" })'>Bisiklet/Motosiklet</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-445c-b3ae-e614e7d35ba3" })'>Kitap</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba3" })'>Müzik Aletleri</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d35ba4" })'>Ders Eğitimi</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d37ba6" })'>Telefon</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href='@Url.Action("Index", "OtherAdverts", new { id = "9f6630fa-dbf4-447c-b3ae-e614e7d15ba6" })'>Diğer</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            <div class="span12" id="content">
+                <div class="row-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p>&copy; Vincent Gabriel 2013</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

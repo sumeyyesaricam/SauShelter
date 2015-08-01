@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="turkiyeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_il">
+          <Key>
+            <PropertyRef Name="il_id" />
+          </Key>
+          <Property Name="il_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="il_ad" Type="nvarchar" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="tbl_ilce">
+          <Key>
+            <PropertyRef Name="ilce_id" />
+          </Key>
+          <Property Name="ilce_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="il_id" Type="smallint" Nullable="false" />
+          <Property Name="ilce_ad" Type="nvarchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="tbl_mahalle">
+          <Key>
+            <PropertyRef Name="mahalle_id" />
+          </Key>
+          <Property Name="mahalle_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="semt_id" Type="smallint" Nullable="false" />
+          <Property Name="mahalle_ad" Type="nvarchar" MaxLength="40" />
+          <Property Name="pk_id" Type="smallint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'turkiye.dbo.tbl_pk' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_pk">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kod" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="tbl_semt">
+          <Key>
+            <PropertyRef Name="semt_id" />
+          </Key>
+          <Property Name="semt_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ilce_id" Type="smallint" Nullable="false" />
+          <Property Name="semt_ad" Type="nvarchar" MaxLength="32" />
+        </EntityType>
+        <EntityContainer Name="turkiyeModelStoreContainer">
+          <EntitySet Name="tbl_il" EntityType="Self.tbl_il" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ilce" EntityType="Self.tbl_ilce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_mahalle" EntityType="Self.tbl_mahalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_semt" EntityType="Self.tbl_semt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_pk" EntityType="Self.tbl_pk" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_pk].[pk_id] AS [pk_id], 
+    [tbl_pk].[kod] AS [kod]
+    FROM [dbo].[tbl_pk] AS [tbl_pk]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="turkiyeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_il">
+          <Key>
+            <PropertyRef Name="il_id" />
+          </Key>
+          <Property Name="il_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="il_ad" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_ilce">
+          <Key>
+            <PropertyRef Name="ilce_id" />
+          </Key>
+          <Property Name="ilce_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="il_id" Type="Int16" Nullable="false" />
+          <Property Name="ilce_ad" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_mahalle">
+          <Key>
+            <PropertyRef Name="mahalle_id" />
+          </Key>
+          <Property Name="mahalle_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="semt_id" Type="Int16" Nullable="false" />
+          <Property Name="mahalle_ad" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="pk_id" Type="Int16" />
+        </EntityType>
+        <EntityType Name="tbl_semt">
+          <Key>
+            <PropertyRef Name="semt_id" />
+          </Key>
+          <Property Name="semt_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ilce_id" Type="Int16" Nullable="false" />
+          <Property Name="semt_ad" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_pk">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kod" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="turkiyeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_il" EntityType="Self.tbl_il" />
+          <EntitySet Name="tbl_ilce" EntityType="Self.tbl_ilce" />
+          <EntitySet Name="tbl_mahalle" EntityType="Self.tbl_mahalle" />
+          <EntitySet Name="tbl_semt" EntityType="Self.tbl_semt" />
+          <EntitySet Name="tbl_pk" EntityType="Self.tbl_pk" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="turkiyeModelStoreContainer" CdmEntityContainer="turkiyeEntities">
+          <EntitySetMapping Name="tbl_il">
+            <EntityTypeMapping TypeName="turkiyeModel.tbl_il">
+              <MappingFragment StoreEntitySet="tbl_il">
+                <ScalarProperty Name="il_id" ColumnName="il_id" />
+                <ScalarProperty Name="il_ad" ColumnName="il_ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ilce">
+            <EntityTypeMapping TypeName="turkiyeModel.tbl_ilce">
+              <MappingFragment StoreEntitySet="tbl_ilce">
+                <ScalarProperty Name="ilce_id" ColumnName="ilce_id" />
+                <ScalarProperty Name="il_id" ColumnName="il_id" />
+                <ScalarProperty Name="ilce_ad" ColumnName="ilce_ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_mahalle">
+            <EntityTypeMapping TypeName="turkiyeModel.tbl_mahalle">
+              <MappingFragment StoreEntitySet="tbl_mahalle">
+                <ScalarProperty Name="mahalle_id" ColumnName="mahalle_id" />
+                <ScalarProperty Name="semt_id" ColumnName="semt_id" />
+                <ScalarProperty Name="mahalle_ad" ColumnName="mahalle_ad" />
+                <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_semt">
+            <EntityTypeMapping TypeName="turkiyeModel.tbl_semt">
+              <MappingFragment StoreEntitySet="tbl_semt">
+                <ScalarProperty Name="semt_id" ColumnName="semt_id" />
+                <ScalarProperty Name="ilce_id" ColumnName="ilce_id" />
+                <ScalarProperty Name="semt_ad" ColumnName="semt_ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_pk">
+            <EntityTypeMapping TypeName="turkiyeModel.tbl_pk">
+              <MappingFragment StoreEntitySet="tbl_pk">
+                <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+                <ScalarProperty Name="kod" ColumnName="kod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

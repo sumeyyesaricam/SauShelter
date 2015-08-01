@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@Html.ValidationMessage("_HATA")
+
+@using (Html.BeginForm("Message", "Advert"))
+{
+    <table>
+        <tr><td>Mail : </td><td>@Html.TextBox("mail")</td></tr>
+        <tr><td>Konu : </td><td>@Html.TextBox("konu")</td></tr>
+        <tr><td>İleti : </td><td>@Html.TextArea("ileti")</td></tr>
+    </table>
+    <input type="submit" value="Mail Gönder!" />
+
+}<span class="Apple-style-span" style="color: #111111; font-family: verdana, arial; font-size: 13px; line-height: 19px; white-space: normal;"> </span>
