@@ -22,7 +22,7 @@ namespace SauShelter.Models
         }
     
         public System.Guid ID { get; set; }
-        [Display(Name = "Açýklama")]
+        [Display(Name = "Ayrýntýlar")]
         public string EXPLANATION { get; set; }
         [Display(Name = "Þehir")]
         public Nullable<int> CITYID { get; set; }

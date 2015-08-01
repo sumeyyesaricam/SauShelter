@@ -56,7 +56,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="NAME" Type="int" />
   </EntityType>
   <EntityType Name="Heating">
     <Key>
@@ -92,7 +92,7 @@
     <Property Name="COST" Type="int" Nullable="false" />
     <Property Name="OWNERID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="TYPEID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="IMAGE" Type="nvarchar(max)" />
+    <Property Name="TIMEID" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="OtherTypes">
     <Key>
@@ -233,6 +233,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_OtherAdvert_DeliveryTime">
+    <End Role="DeliveryTime" Type="Self.DeliveryTime" Multiplicity="0..1" />
+    <End Role="OtherAdvert" Type="Self.OtherAdvert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeliveryTime">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OtherAdvert">
+        <PropertyRef Name="TIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_OtherAdvert_Insider">
     <End Role="Insider" Type="Self.Insider" Multiplicity="1" />
     <End Role="OtherAdvert" Type="Self.OtherAdvert" Multiplicity="*" />
@@ -317,6 +329,10 @@
     <AssociationSet Name="FK_Insider_Address" Association="Self.FK_Insider_Address">
       <End Role="Address" EntitySet="Address" />
       <End Role="Insider" EntitySet="Insider" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OtherAdvert_DeliveryTime" Association="Self.FK_OtherAdvert_DeliveryTime">
+      <End Role="DeliveryTime" EntitySet="DeliveryTime" />
+      <End Role="OtherAdvert" EntitySet="OtherAdvert" />
     </AssociationSet>
     <AssociationSet Name="FK_OtherAdvert_Insider" Association="Self.FK_OtherAdvert_Insider">
       <End Role="Insider" EntitySet="Insider" />

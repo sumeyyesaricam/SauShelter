@@ -11,17 +11,21 @@ namespace SauShelter.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class DeliveryTime
     {
         public DeliveryTime()
         {
             this.Advert = new HashSet<Advert>();
+            this.OtherAdvert = new HashSet<OtherAdvert>();
         }
     
         public System.Guid ID { get; set; }
-        public string NAME { get; set; }
+        [Display(Name="Ýlan Süresi")]
+        public Nullable<int> NAME { get; set; }
     
         public virtual ICollection<Advert> Advert { get; set; }
+        public virtual ICollection<OtherAdvert> OtherAdvert { get; set; }
     }
 }

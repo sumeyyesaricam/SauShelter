@@ -12,7 +12,17 @@ namespace SauShelter.Controllers
         SauShelterEntities ilan = new SauShelterEntities();
         turkiyeEntities te = new turkiyeEntities();
         public ActionResult Index(Guid? id, string AdvertName, int? EnDusuk, int? EnYuksek, Guid? OdaSayisi, int? Sehir, int? Ilce)
-        {      
+        {
+            foreach (var insider in ilan.Insider)
+            {
+                if (insider.EMAIL == User.Identity.Name)
+                {
+                        ViewBag.Eİlanlarım = "Emlak İlanlarım";
+                        ViewBag.Dİlanlarım = "Diğer İlanlarım";
+                        ViewBag.Kisi = insider.ID;
+                }
+            }
+            
             List<Advert> liste = new List<Advert>();
             var oda = ilan.RoomCount;
             ViewBag.OdaSayisi = new SelectList(oda, "ID", "NAME", OdaSayisi);
@@ -117,8 +127,29 @@ namespace SauShelter.Controllers
                       }
                     }
                 }}
+            
+               foreach(var son in ilan.Advert)
+               {
+                   int ay=0;
+                   DateTime ilkdeger = son.ADVERTDATE;
+                   foreach(var trh in ilan.DeliveryTime)
+                   {
+                       if (son.TIMEID == trh.ID)
+                           ay = Convert.ToInt32(trh.NAME);
+                   }
+                   DateTime ilkdğr=ilkdeger.AddMonths(ay);
+                   DateTime sondeger = DateTime.Now;
+                   System.TimeSpan zaman = ilkdğr - sondeger; 
+                  double days = zaman.TotalDays;
+                  System.TimeSpan zmn = sondeger - ilkdeger; 
+                  double dys = zmn.TotalDays;
+                  if (days < 0 || dys<0)
+                   {
+                       liste.Remove(son);
+                   }
+               }
                 if (liste.Count() == 0)
-                    ViewBag.Mesaj = "Aradığınız Sonuç Bulunamadı";
+                    ViewBag.Mesaj = "Aradığınız İlan Mevcut Değil.";
                 return View(liste);
             
         }

@@ -23,13 +23,34 @@ namespace SauShelter.Controllers
             var otherAdvert = db.OtherAdvert.Include(o => o.Insider).Include(o => o.OtherTypes);
             foreach (var item in db.OtherAdvert)
             {
-                if (id == item.OTYPEID || id == null)
-                {
-                    liste.Add(item);
-                }
-                else
-                    ViewBag.Mesaj = "Aradığınız İlan Mevcut Değil";
+                liste.Add(item);
             }
+            foreach (var son in db.OtherAdvert)
+            {
+                if (id != son.OTYPEID && id!=null )
+                {
+                    liste.Remove(son);
+                }
+                int ay = 0;
+                DateTime ilkdeger = son.ADVERTDATE;
+                foreach (var trh in db.DeliveryTime)
+                {
+                    if (son.TIMEID == trh.ID)
+                        ay = Convert.ToInt32(trh.NAME);
+                }
+                DateTime ilkdğr = ilkdeger.AddMonths(ay);
+                DateTime sondeger = DateTime.Now;
+                System.TimeSpan zaman = ilkdğr - sondeger;
+                double days = zaman.TotalDays;
+                System.TimeSpan zmn = sondeger - ilkdeger;
+                double dys = zmn.TotalDays;
+                if (days < 0 || dys < 0)
+                {
+                    liste.Remove(son);
+                }
+            }
+            if (liste.Count() == 0)
+                ViewBag.Mesaj = "Aradığınız İlan Mevcut Değil.";
             return View(liste);
         }
         public ActionResult Index(Guid? id)
@@ -67,6 +88,12 @@ namespace SauShelter.Controllers
         // GET: OtherAdverts/Create
         public ActionResult Create()
         {
+            foreach (var insider in db.Insider)
+            {
+                if (insider.EMAIL == User.Identity.Name)
+                    ViewBag.Kisi = insider.ID;
+            }
+            ViewBag.TIMEID = new SelectList(db.DeliveryTime, "ID", "NAME");
             ViewBag.OWNERID = new SelectList(db.Insider, "ID", "NAME");
             ViewBag.OTYPEID = new SelectList(db.OtherTypes, "ID", "NAME");
             ViewBag.TYPEID = new SelectList(db.Type, "ID", "NAME");
@@ -87,6 +114,7 @@ namespace SauShelter.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.TIMEID = new SelectList(db.DeliveryTime, "ID", "NAME", otherAdvert.TIMEID);
             ViewBag.TYPEID = new SelectList(db.Type, "ID", "NAME", otherAdvert.TYPEID);
             ViewBag.OWNERID = new SelectList(db.Insider, "ID", "NAME", otherAdvert.OWNERID);
             ViewBag.OTYPEID = new SelectList(db.OtherTypes, "ID", "NAME", otherAdvert.OTYPEID);
@@ -105,6 +133,7 @@ namespace SauShelter.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TIMEID = new SelectList(db.DeliveryTime, "ID", "NAME", otherAdvert.TIMEID);
             ViewBag.OWNERID = new SelectList(db.Insider, "ID", "NAME", otherAdvert.OWNERID);
             ViewBag.TYPEID = new SelectList(db.Type, "ID", "NAME", otherAdvert.TYPEID);
             ViewBag.OTYPEID = new SelectList(db.OtherTypes, "ID", "NAME", otherAdvert.OTYPEID);
@@ -135,6 +164,7 @@ namespace SauShelter.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.TIMEID = new SelectList(db.DeliveryTime, "ID", "NAME", otherAdvert.TIMEID);
             ViewBag.TYPEID = new SelectList(db.Type, "ID", "NAME", otherAdvert.TYPEID);
             ViewBag.OWNERID = new SelectList(db.Insider, "ID", "NAME", otherAdvert.OWNERID);
             ViewBag.OTYPEID = new SelectList(db.OtherTypes, "ID", "NAME", otherAdvert.OTYPEID);

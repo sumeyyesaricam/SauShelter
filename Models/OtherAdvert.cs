@@ -11,29 +11,31 @@ namespace SauShelter.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
     
     public partial class OtherAdvert
     {
         public System.Guid ID { get; set; }
-        [Display(Name = "Ýlan Türü")]
+        [Display(Name="Ýlan Türü")]
         public System.Guid OTYPEID { get; set; }
-        [Display(Name = "Ýlan Tarihi")]
+         [Display(Name = "Ýlan Tarihi")]
         public System.DateTime ADVERTDATE { get; set; }
         [Display(Name = "Açýklama")]
         public string EXPLANATION { get; set; }
         [Display(Name = "Baþlýk")]
         public string TITLE { get; set; }
-        [Display(Name = "Fiyat")]
+        [Display(Name = "Fiyatý")]
         public int COST { get; set; }
         [Display(Name = "Ýlan Sahibi")]
         public System.Guid OWNERID { get; set; }
         [Display(Name = "Türü")]
         public System.Guid TYPEID { get; set; }
-        public string IMAGE { get; set; }
+        [Display(Name = "Ýlan Süresi")]
+        public Nullable<System.Guid> TIMEID { get; set; }
     
         public virtual Insider Insider { get; set; }
         public virtual OtherTypes OtherTypes { get; set; }
         public virtual Type Type { get; set; }
+        public virtual DeliveryTime DeliveryTime { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace SauShelter.Models
     public partial class Advert
     {
         public System.Guid ID { get; set; }
-        [Display(Name = "Ýlan Tarihi")]
+        [Display(Name="Ýlan Tarihi")]
         public System.DateTime ADVERTDATE { get; set; }
         [Display(Name = "Oda Sayýsý")]
         public Nullable<System.Guid> ROOMCOUNTID { get; set; }
@@ -30,7 +30,7 @@ namespace SauShelter.Models
         public string TITLE { get; set; }
         [Display(Name = "Banyo Sayýsý")]
         public Nullable<int> BATHCOUNT { get; set; }
-        [Display(Name = "Fiyat")]
+        [Display(Name = "Fiyatý")]
         public Nullable<int> COST { get; set; }
         [Display(Name = "Kaç Kiþilik")]
         public Nullable<int> PERSONCOUNT { get; set; }
@@ -42,19 +42,19 @@ namespace SauShelter.Models
         public Nullable<bool> GARDEN { get; set; }
         [Display(Name = "Yapým Yýlý")]
         public Nullable<System.DateTime> CONSTRUCTIONDATE { get; set; }
-        [Display(Name = "Adresi")]
+        [Display(Name = "Adres")]
         public Nullable<System.Guid> ADDRESSID { get; set; }
         [Display(Name = "Aidat")]
         public Nullable<int> MONTHLYFEE { get; set; }
         [Display(Name = "Eþyalý")]
         public Nullable<bool> FULLYFURNISHED { get; set; }
-        [Display(Name = "Metre Kare")]
+        [Display(Name = "MetreKare")]
         public Nullable<int> SQUAREFEET { get; set; }
         [Display(Name = "Türü")]
         public System.Guid TYPID { get; set; }
         [Display(Name = "Ýlan Sahibi")]
         public System.Guid OWNERID { get; set; }
-        [Display(Name = "Teslim Tarihi")]
+        [Display(Name = "Ýlan Süresi")]
         public Nullable<System.Guid> TIMEID { get; set; }
         [Display(Name = "Diðer")]
         public string OTHER { get; set; }

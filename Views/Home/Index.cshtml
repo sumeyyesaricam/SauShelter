@@ -36,15 +36,22 @@
         </div>
         <div class="span9" id="content">
             <div class="row-fluid">
-                <div class="">
+                <div class="span6">
                     <h3>En Yeni İlanlar</h3>
-                    <div id="">
-                        <marquee>
-                            <img src="~/Images/11.jpg" width="300" height="500" />
-                            <img src="~/Images/22.jpg" width="400" height="500" />
-                        </marquee>
-                    </div>
                 </div>
+                <div class="span3">
+                    <a href="/Advert/Index/@ViewBag.Kisi"><h3>@ViewBag.Eİlanlarım</h3></a>
+                </div>
+                <div class="span3">
+                    <a href="/OtherAdverts/Index/@ViewBag.Kisi"><h3>@ViewBag.Dİlanlarım</h3></a>
+                </div>
+                        <div id="">
+                            <marquee>
+                                <img src="~/Images/11.jpg" width="300" height="500" />
+                                <img src="~/Images/22.jpg" width="400" height="500" />
+                            </marquee>
+                        </div>
+                    </div>
 
                 <div class="block">
                     @using (Html.BeginForm())

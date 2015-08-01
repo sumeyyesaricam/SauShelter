@@ -68,8 +68,9 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Guid" Nullable="false" />
-    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NAME" Type="Int32" />
     <NavigationProperty Name="Advert" Relationship="Self.FK_Advert_DeliveryTime" FromRole="DeliveryTime" ToRole="Advert" />
+    <NavigationProperty Name="OtherAdvert" Relationship="SauShelterModel.FK_OtherAdvert_DeliveryTime" FromRole="DeliveryTime" ToRole="OtherAdvert" />
   </EntityType>
   <EntityType Name="Heating">
     <Key>
@@ -109,10 +110,11 @@
     <Property Name="COST" Type="Int32" Nullable="false" />
     <Property Name="OWNERID" Type="Guid" Nullable="false" />
     <Property Name="TYPEID" Type="Guid" Nullable="false" />
-    <Property Name="IMAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Insider" Relationship="Self.FK_OtherAdvert_Insider" FromRole="OtherAdvert" ToRole="Insider" />
     <NavigationProperty Name="OtherTypes" Relationship="Self.FK_OtherAdvert_OtherTypes" FromRole="OtherAdvert" ToRole="OtherTypes" />
     <NavigationProperty Name="Type" Relationship="Self.FK_OtherAdvert_Type" FromRole="OtherAdvert" ToRole="Type" />
+    <Property Name="TIMEID" Type="Guid" />
+    <NavigationProperty Name="DeliveryTime" Relationship="SauShelterModel.FK_OtherAdvert_DeliveryTime" FromRole="OtherAdvert" ToRole="DeliveryTime" />
   </EntityType>
   <EntityType Name="OtherTypes">
     <Key>
@@ -354,5 +356,21 @@
       <End Role="Type" EntitySet="Type" />
       <End Role="OtherAdvert" EntitySet="OtherAdvert" />
     </AssociationSet>
+    <AssociationSet Name="FK_OtherAdvert_DeliveryTime" Association="SauShelterModel.FK_OtherAdvert_DeliveryTime">
+      <End Role="DeliveryTime" EntitySet="DeliveryTime" />
+      <End Role="OtherAdvert" EntitySet="OtherAdvert" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_OtherAdvert_DeliveryTime">
+    <End Type="SauShelterModel.DeliveryTime" Role="DeliveryTime" Multiplicity="0..1" />
+    <End Type="SauShelterModel.OtherAdvert" Role="OtherAdvert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeliveryTime">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OtherAdvert">
+        <PropertyRef Name="TIMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

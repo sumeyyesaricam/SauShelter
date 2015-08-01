@@ -11,6 +11,7 @@ namespace SauShelter.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class AdvertType
     {
@@ -20,6 +21,7 @@ namespace SauShelter.Models
         }
     
         public System.Guid ID { get; set; }
+        [Display(Name = "Ýlan Türü")]
         public string NAME { get; set; }
     
         public virtual ICollection<Advert> Advert { get; set; }

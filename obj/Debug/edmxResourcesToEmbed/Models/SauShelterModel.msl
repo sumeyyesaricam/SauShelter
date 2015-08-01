@@ -91,6 +91,7 @@
     <EntitySetMapping Name="OtherAdvert">
       <EntityTypeMapping TypeName="SauShelterModel.OtherAdvert">
         <MappingFragment StoreEntitySet="OtherAdvert">
+          <ScalarProperty Name="TIMEID" ColumnName="TIMEID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="OTYPEID" ColumnName="OTYPEID" />
           <ScalarProperty Name="ADVERTDATE" ColumnName="ADVERTDATE" />
@@ -99,7 +100,6 @@
           <ScalarProperty Name="COST" ColumnName="COST" />
           <ScalarProperty Name="OWNERID" ColumnName="OWNERID" />
           <ScalarProperty Name="TYPEID" ColumnName="TYPEID" />
-          <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

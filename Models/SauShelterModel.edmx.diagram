@@ -29,6 +29,7 @@
         <AssociationConnector Association="SauShelterModel.FK_OtherAdvert_Insider" ManuallyRouted="false" />
         <AssociationConnector Association="SauShelterModel.FK_OtherAdvert_OtherTypes" ManuallyRouted="false" />
         <AssociationConnector Association="SauShelterModel.FK_OtherAdvert_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="SauShelterModel.FK_OtherAdvert_DeliveryTime" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

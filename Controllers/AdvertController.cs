@@ -128,7 +128,11 @@ namespace SauShelter.Controllers
             ViewBag.townn = new SelectList(town, "ilce_id", "ilce_ad");
             var district = te.tbl_mahalle;
             ViewBag.dstrct = new SelectList(district, "mahalle_id", "mahalle_ad");
-
+            foreach (var insider in db.Insider)
+            {
+                if (insider.EMAIL == User.Identity.Name)
+                          ViewBag.Kisi = insider.ID;
+            }
             ViewBag.ADDRESSID = new SelectList(db.Address, "ID", "EXPLANATION");
             ViewBag.ATYPEID = new SelectList(db.AdvertType, "ID", "NAME");
             ViewBag.FLOORID = new SelectList(db.ApartmentFloor, "ID", "NAME");

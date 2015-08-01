@@ -4,20 +4,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <h2>İlanlarım</h2>
 
-<p>
-    @Html.ActionLink("Yeni İlan", "Create")
-</p>
 @if (@ViewBag.ilanmsj != null)
 {
     @ViewBag.ilanmsj
-    <a href="~/OtherAdverts/Create"><button class="btn-danger"> İlan ver. </button></a>
+    <a href="~/OtherAdverts/Create"><button class="btn-danger"> İlan ver.</button></a>
 }
 else
 {
+    <p>
+        @Html.ActionLink("Yeni İlan Oluştur.", "Create")
+    </p>
     <table class="table">
         <tr>
             <th>
@@ -30,6 +28,9 @@ else
                 @Html.DisplayNameFor(model => model.ADVERTDATE)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.DeliveryTime.NAME)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.COST)
             </th>
             <th></th>
@@ -40,7 +41,7 @@ else
             <tr>
                 <th>
                     <a href='@Url.Action("Details", "Adverts", new {id=item.ID })'>
-                        <img src="~/Images/@(item.ID).jpg" width="200px" height="200px" />
+                        <img src="~/Images/@(item.ID).jpg" width="200" height="200" />
                     </a>
                 </th>
                 <td>
@@ -48,6 +49,9 @@ else
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ADVERTDATE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryTime.NAME) AY
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.COST)

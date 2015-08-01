@@ -22,33 +22,23 @@ namespace SauShelter.Models
         }
     
         public System.Guid ID { get; set; }
-        [Required]
         [Display(Name = "Adý")]
         public string NAME { get; set; }
-        [Required]
-        [Display(Name = "E-Posta Adresi")]
-        [EmailAddress]
+        [Display(Name = "E-Mail")]
         public string EMAIL { get; set; }
-        [Required]
         [Display(Name = "Telefon Numarasý")]
         public string PHONENUMBER { get; set; }
-        [Required]
         [Display(Name = "Þifre")]
-        [DataType(DataType.Password)]
         public string PASSWORD { get; set; }
-         [Display(Name = "Doðum Tarihi")]
+        [Display(Name = "Doðum Tarihi")]
         public System.DateTime BIRTHDATE { get; set; }
-         [Display(Name = "Cinsiyet")]
+        [Display(Name = "Cinsiyet")]
         public Nullable<bool> GENDER { get; set; }
-         [Display(Name = "Adres")]
+        [Display(Name = "Adres")]
         public Nullable<System.Guid> ADDRESSID { get; set; }
-        [Required]
         [Display(Name = "Soyadý")]
         public string SURNAME { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Þifre Tekrar")]
-        [Compare("PASSWORD", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Þifre(Tekrar)")]
         public string CONFIRMPASSWORD { get; set; }
     
         public virtual Address Address { get; set; }
