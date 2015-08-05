@@ -1,6 +1,6 @@
-﻿@model  IEnumerable<SauShelter.Models.Advert>
-@using PagedList.Mvc
+﻿@model  IPagedList<SauShelter.Models.Advert>
 @using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Home Page";
 }
@@ -91,9 +91,13 @@
                                 </table>
                             </div>
                             }
-                            @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))*@
+                            
+                            
                         </div>
                     </div>
+                    <div class="pagedList">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.Classic)
+</div>
                 </div>
             </div>
         </div>

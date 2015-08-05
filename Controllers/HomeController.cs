@@ -1,4 +1,5 @@
-﻿using SauShelter.Models;
+﻿using PagedList;
+using SauShelter.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SauShelter.Controllers
     {
         SauShelterEntities ilan = new SauShelterEntities();
         turkiyeEntities te = new turkiyeEntities();
-        public ActionResult Index(int? page, Guid? id, string currentFilter, string AdvertName, int? EnDusuk, int? EnYuksek, Guid? OdaSayisi, int? Sehir, int? Ilce)
+        public ActionResult Index(Guid? id, string currentFilter, string AdvertName, int? EnDusuk, int? EnYuksek, Guid? OdaSayisi, int? Sehir, int? Ilce, int page = 1, int pageSize=10)
         {
             if (AdvertName != null)
             {
@@ -159,13 +160,11 @@ namespace SauShelter.Controllers
                        liste.Remove(son);
                    }
                }
+               
                 if (liste.Count() == 0)
                     ViewBag.Mesaj = "Aradığınız İlan Mevcut Değil.";
-                //var res = liste.ToPagedList(page ?? 1, 2);
-                int pageSize = 3;
-                int pageNumber = (page ?? 1);
-                //return View(liste.ToPagedList(pageNumber, pageSize));
-                return View();
+                PagedList<Advert> advrtlist = new PagedList<Advert>(liste, page, pageSize);
+                return View(advrtlist);
         }
         public ActionResult About()
         {
