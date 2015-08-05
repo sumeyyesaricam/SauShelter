@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Net.Mail;
 using System.Web.Helpers;
+using System.IO;
+using System.Threading.Tasks;
 
 
 namespace SauShelter.Controllers
@@ -21,7 +23,7 @@ namespace SauShelter.Controllers
         private SauShelterEntities db = new SauShelterEntities();
         private turkiyeEntities te = new turkiyeEntities();
         // GET: Advert
-       
+        int say = 0;
         public ActionResult Index(Guid? id)
         {
             var advert = db.Advert.Include(a => a.Address).Include(a => a.AdvertType).Include(a => a.ApartmentFloor).Include(a => a.DeliveryTime).Include(a => a.Heating).Include(a => a.Insider).Include(a => a.RoomCount).Include(a => a.Type);
@@ -37,43 +39,29 @@ namespace SauShelter.Controllers
         }
         [AllowAnonymous]
           [HttpPost]
-        public ActionResult Message(string mail, string konu, string ileti)
+        public async Task<ActionResult> Message(string mail, string konu, string ileti)
         {
-            try
-            {
-                WebMail.SmtpServer = "smtp.gmail.com";
-                WebMail.EnableSsl = true;
-                WebMail.UserName = "ftm@hotmail.com";
-                WebMail.Password = "Ftm.123"; // gerçek dışı
-                WebMail.SmtpPort = 587;
-                WebMail.Send(
-                        "ftm@hotmail.com",
-                        konu,
-                        ileti,
-                        mail
-                    );
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("sumeyyesaricam@hotmail.com"));  // replace with valid value 
+            message.From = new MailAddress("sumeyye98762@gmail.com");  // replace with valid value
+            message.Subject = "Your email subject";
+            message.Body = ileti;
+            message.IsBodyHtml = true;
 
-                return RedirectToAction("Gonderildi");
-            }
-            catch (Exception ex)
+            using (var smtp = new SmtpClient())
             {
-                ViewData.ModelState.AddModelError("_HATA", ex.Message);
+                var credential = new NetworkCredential
+                {
+                    UserName = "sumeyye98762@gmail.com",  // replace with valid value
+                    Password = "şifre"  // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+                return RedirectToAction("Index", "Home");
             }
-            //MailMessage mai = new MailMessage();
-            //mai.From = new MailAddress("sumeyye98762@gmail.com"); //Mailin kimden gittiğini belirtiyoruz  
-            //mai.To.Add(mail); //Mailin kime gideceğini belirtiyoruz
-            //mai.Subject = konu;
-            //mai.Body = ileti;
-            //mai.IsBodyHtml = true;
-            //mai.Priority = MailPriority.High;
-            //mai.BodyEncoding = System.Text.Encoding.UTF8;
-            //mai.SubjectEncoding = System.Text.Encoding.UTF8; 
-            //SmtpClient sc = new SmtpClient();
-            //sc.Port = 587;
-            //sc.Host = "smtp.gmail.com";
-            //sc.EnableSsl = true;
-            //sc.Credentials = new NetworkCredential("sumeyye98762@gmail.com", "ŞİFRE");
-            //sc.Send(mai);
             return RedirectToAction("Index","Home");
         }
         public string Gonderildi()
@@ -85,11 +73,27 @@ namespace SauShelter.Controllers
         [AllowAnonymous]
         public ActionResult Details(Guid? id)
         {
-            if (id == null)
+            
+           if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Advert advert = db.Advert.Find(id);
+            List<String> rsmlist = new List<string>();
+            var images = Server.MapPath("/Images");
+            DirectoryInfo di = new DirectoryInfo(images);
+             FileInfo[] rgFiles = di.GetFiles();
+             foreach (var rsm in rgFiles)
+            {
+                string name = rsm.Name;
+                var isim=rsm.Name.Split(',');
+                if(isim[0].ToString()==advert.ID.ToString())
+                {
+                    rsmlist.Add(name);
+                }
+            }
+             ViewBag.liste = rsmlist;    
+
             foreach(var adrs in db.Address)
             {
                 if(adrs.ID==advert.ADDRESSID)
@@ -157,7 +161,7 @@ namespace SauShelter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HttpPostedFileBase uploadfile,string Acıklama, int? secimil, int? secimilce, int? secimMahalle,[Bind(Include = "ID,ADVERTDATE,ROOMCOUNTID,FLOORID,HEATINGID,EXPLANATION,TITLE,BATHCOUNT,COST,PERSONCOUNT,ATYPEID,BALCONY,GARDEN,CONSTRUCTIONDATE,ADDRESSID,MONTHLYFEE,FULLYFURNISHED,SQUAREFEET,TYPID,OWNERID,TIMEID,OTHER")] Advert advert)
+        public ActionResult Create(IEnumerable<HttpPostedFileBase> SecilenDosyalar, string Acıklama, int? secimil, int? secimilce, int? secimMahalle, [Bind(Include = "ID,ADVERTDATE,ROOMCOUNTID,FLOORID,HEATINGID,EXPLANATION,TITLE,BATHCOUNT,COST,PERSONCOUNT,ATYPEID,BALCONY,GARDEN,CONSTRUCTIONDATE,ADDRESSID,MONTHLYFEE,FULLYFURNISHED,SQUAREFEET,TYPID,OWNERID,TIMEID,OTHER")] Advert advert)
         {
             var city = te.tbl_il;
             ViewBag.City = new SelectList(city, "il_id", "il_ad");
@@ -194,9 +198,10 @@ namespace SauShelter.Controllers
                 advert.OWNERID = oid;
                 db.Advert.Add(advert);
                 db.SaveChanges();
-                if (uploadfile != null)
+                foreach (var file in SecilenDosyalar)
                 {
-                    uploadfile.SaveAs(Server.MapPath("~/Images/") + advert.ID + ".jpg");
+                    say++;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID+say + ".jpg"));
                 }
                 return RedirectToAction("Index/"+ oid);
             }
@@ -268,7 +273,7 @@ namespace SauShelter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(HttpPostedFileBase uploadfile, string Acıklama, int? secimil, int? secimilce, int? secimMahalle, [Bind(Include = "ID,ADVERTDATE,ROOMCOUNTID,FLOORID,HEATINGID,EXPLANATION,TITLE,BATHCOUNT,COST,PERSONCOUNT,ATYPEID,BALCONY,GARDEN,CONSTRUCTIONDATE,ADDRESSID,MONTHLYFEE,FULLYFURNISHED,SQUAREFEET,TYPID,OWNERID,TIMEID,OTHER")] Advert advert)
+        public ActionResult Edit(IEnumerable<HttpPostedFileBase> SecilenDosyalar, string Acıklama, int? secimil, int? secimilce, int? secimMahalle, [Bind(Include = "ID,ADVERTDATE,ROOMCOUNTID,FLOORID,HEATINGID,EXPLANATION,TITLE,BATHCOUNT,COST,PERSONCOUNT,ATYPEID,BALCONY,GARDEN,CONSTRUCTIONDATE,ADDRESSID,MONTHLYFEE,FULLYFURNISHED,SQUAREFEET,TYPID,OWNERID,TIMEID,OTHER")] Advert advert)
         {
             var city = te.tbl_il;
             ViewBag.City = new SelectList(city, "il_id", "il_ad");
@@ -300,10 +305,27 @@ namespace SauShelter.Controllers
                     advert.ADDRESSID = adres.ID;
                     db.Address.Add(adres);
                 }
-                if (uploadfile != null)
+                if(SecilenDosyalar!=null)
                 {
-                    uploadfile.SaveAs(Server.MapPath("~/Images/") + advert.ID + ".jpg");
+                    var images = Server.MapPath("/Images");
+                    DirectoryInfo di = new DirectoryInfo(images);
+                    FileInfo[] rgFiles = di.GetFiles();
+                    foreach (var rsm in rgFiles)
+                    {
+                        string name = rsm.Name;
+                        var isim = rsm.Name.Split(',');
+                        if (isim[0].ToString() == advert.ID.ToString())
+                        {
+                            System.IO.File.Delete(Server.MapPath("~/Images/" + name));
+                        }
+                    }
+                  foreach (var file in SecilenDosyalar)
+                {
+                    say++;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID + say + ".jpg"));
                 }
+                }
+                
                 advert.OWNERID = oid;
                 db.Entry(advert).State = EntityState.Modified;
                 db.SaveChanges();
@@ -327,6 +349,20 @@ namespace SauShelter.Controllers
             Guid oid = Guid.NewGuid();
             Advert advert = db.Advert.Find(did);
             db.Advert.Remove(advert);
+
+            var images = Server.MapPath("/Images");
+            DirectoryInfo di = new DirectoryInfo(images);
+            FileInfo[] rgFiles = di.GetFiles();
+            foreach (var rsm in rgFiles)
+            {
+                string name = rsm.Name;
+                var isim = rsm.Name.Split(',');
+                if (isim[0].ToString() == advert.ID.ToString())
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Images/" + name));
+                }
+            }
+                        
             db.SaveChanges();
             return RedirectToAction("Index/" + oid);
         }

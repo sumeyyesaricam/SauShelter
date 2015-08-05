@@ -11,8 +11,19 @@ namespace SauShelter.Controllers
     {
         SauShelterEntities ilan = new SauShelterEntities();
         turkiyeEntities te = new turkiyeEntities();
-        public ActionResult Index(Guid? id, string AdvertName, int? EnDusuk, int? EnYuksek, Guid? OdaSayisi, int? Sehir, int? Ilce)
+        public ActionResult Index(int? page, Guid? id, string currentFilter, string AdvertName, int? EnDusuk, int? EnYuksek, Guid? OdaSayisi, int? Sehir, int? Ilce)
         {
+            if (AdvertName != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                AdvertName = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = AdvertName;
+
             foreach (var insider in ilan.Insider)
             {
                 if (insider.EMAIL == User.Identity.Name)
@@ -150,8 +161,11 @@ namespace SauShelter.Controllers
                }
                 if (liste.Count() == 0)
                     ViewBag.Mesaj = "Aradığınız İlan Mevcut Değil.";
-                return View(liste);
-            
+                //var res = liste.ToPagedList(page ?? 1, 2);
+                int pageSize = 3;
+                int pageNumber = (page ?? 1);
+                //return View(liste.ToPagedList(pageNumber, pageSize));
+                return View();
         }
         public ActionResult About()
         {

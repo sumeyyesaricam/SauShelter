@@ -266,12 +266,13 @@
                     </div>
                         <div class="block-content collapse in">
                             <div class="span12" style="padding-bottom:30px;">
-                                <img src="~/Images/@(Model.ID).jpg" id="rsm" style="width: 300px; height: 150px;" />
+                                <img src="~/Images/@(Model.ID),1.jpg" id="rsm" style="width: 300px; height: 150px;" />
                             </div>
                             <input id="rsmdgstr" class="btn-danger" value="Resmi değiştir."/>
                         </div>
                     <div id="sil" hidden>
-                        <input type="file" id="uploadfile" name="uploadfile" /> <br /><br />
+                        <input type="file" class="multi" name="SecilenDosyalar" /><br /> <br /><br />
+                        <input type="submit" value="Dosyaları Aktar" /> 
                     </div>
                         <input type="submit" value="Kaydet" class="btn btn-danger" />
                     </div>

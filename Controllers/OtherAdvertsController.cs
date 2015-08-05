@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SauShelter.Models;
+using System.IO;
 
 namespace SauShelter.Controllers
 {
@@ -14,7 +15,7 @@ namespace SauShelter.Controllers
     public class OtherAdvertsController : Controller
     {
         private SauShelterEntities db = new SauShelterEntities();
-
+        int say = 0;
         // GET: OtherAdverts
         [AllowAnonymous]
         public ActionResult HomeIndex(Guid? id, string AdvertName)
@@ -78,6 +79,20 @@ namespace SauShelter.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             OtherAdvert otherAdvert = db.OtherAdvert.Find(id);
+            List<String> rsmlist = new List<string>();
+            var images = Server.MapPath("/Images");
+            DirectoryInfo di = new DirectoryInfo(images);
+            FileInfo[] rgFiles = di.GetFiles();
+            foreach (var rsm in rgFiles)
+            {
+                string name = rsm.Name;
+                var isim = rsm.Name.Split(',');
+                if (isim[0].ToString() == otherAdvert.ID.ToString())
+                {
+                    rsmlist.Add(name);
+                }
+            }
+            ViewBag.liste = rsmlist;    
             if (otherAdvert == null)
             {
                 return HttpNotFound();
@@ -105,15 +120,22 @@ namespace SauShelter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,OTYPEID,ADVERTDATE,EXPLANATION,TITLE,IMAGE,COST,OWNERID")] OtherAdvert otherAdvert)
+        public ActionResult Create(IEnumerable<HttpPostedFileBase> SecilenDosyalar,[Bind(Include = "ID,OTYPEID,ADVERTDATE,EXPLANATION,TITLE,IMAGE,COST,OWNERID")] OtherAdvert otherAdvert)
         {
             if (ModelState.IsValid)
             {
                 otherAdvert.ID = Guid.NewGuid();
                 db.OtherAdvert.Add(otherAdvert);
                 db.SaveChanges();
+               
+                foreach (var file in SecilenDosyalar)
+                {
+                    say++;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + otherAdvert.ID +say+ ".jpg"));
+                }
                 return RedirectToAction("Index");
             }
+
             ViewBag.TIMEID = new SelectList(db.DeliveryTime, "ID", "NAME", otherAdvert.TIMEID);
             ViewBag.TYPEID = new SelectList(db.Type, "ID", "NAME", otherAdvert.TYPEID);
             ViewBag.OWNERID = new SelectList(db.Insider, "ID", "NAME", otherAdvert.OWNERID);
@@ -145,7 +167,7 @@ namespace SauShelter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,OTYPEID,TYPEID,ADVERTDATE,EXPLANATION,TITLE,IMAGE,COST,OWNERID")] OtherAdvert otherAdvert)
+        public ActionResult Edit(IEnumerable<HttpPostedFileBase> SecilenDosyalar,[Bind(Include = "ID,OTYPEID,TYPEID,ADVERTDATE,EXPLANATION,TITLE,IMAGE,COST,OWNERID")] OtherAdvert otherAdvert)
         {
             if (ModelState.IsValid)
             {
@@ -157,6 +179,26 @@ namespace SauShelter.Controllers
                         oid = insider.ID;
                         ViewBag.Telefon = insider.PHONENUMBER;
                         ViewBag.AID = insider.ID;
+                    }
+                }
+                if (SecilenDosyalar != null)
+                {
+                    var images = Server.MapPath("/Images");
+                    DirectoryInfo di = new DirectoryInfo(images);
+                    FileInfo[] rgFiles = di.GetFiles();
+                    foreach (var rsm in rgFiles)
+                    {
+                        string name = rsm.Name;
+                        var isim = rsm.Name.Split(',');
+                        if (isim[0].ToString() == otherAdvert.ID.ToString())
+                        {
+                            System.IO.File.Delete(Server.MapPath("~/Images/" + name));
+                        }
+                    }
+                    foreach (var file in SecilenDosyalar)
+                    {
+                        say++;
+                        file.SaveAs(HttpContext.Server.MapPath("~/Images/" + otherAdvert.ID + say + ".jpg"));
                     }
                 }
                 db.Entry(otherAdvert).State = EntityState.Modified;
@@ -178,6 +220,19 @@ namespace SauShelter.Controllers
         {
             OtherAdvert otherAdvert = db.OtherAdvert.Find(did);
             db.OtherAdvert.Remove(otherAdvert);
+
+            var images = Server.MapPath("/Images");
+            DirectoryInfo di = new DirectoryInfo(images);
+            FileInfo[] rgFiles = di.GetFiles();
+            foreach (var rsm in rgFiles)
+            {
+                string name = rsm.Name;
+                var isim = rsm.Name.Split(',');
+                if (isim[0].ToString() == otherAdvert.ID.ToString())
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Images/" + name));
+                }
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

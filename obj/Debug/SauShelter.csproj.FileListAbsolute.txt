@@ -108,3 +108,10 @@ F:\SauShelter\SauShelter\trunk\bin\System.Web.WebPages.Deployment.xml
 F:\SauShelter\SauShelter\trunk\bin\System.Web.WebPages.Razor.xml
 F:\SauShelter\SauShelter\trunk\bin\System.Web.Mvc.xml
 F:\SauShelter\SauShelter\trunk\bin\Newtonsoft.Json.xml
+F:\SauShelter\SauShelter\trunk\bin\PagedList.dll
+F:\SauShelter\SauShelter\trunk\bin\PagedList.Mvc.dll
+F:\SauShelter\SauShelter\trunk\bin\PagedList.Net.dll
+F:\SauShelter\SauShelter\trunk\bin\X.PagedList.dll
+F:\SauShelter\SauShelter\trunk\bin\X.PagedList.Mvc.dll
+F:\SauShelter\SauShelter\trunk\bin\PagedList.xml
+F:\SauShelter\SauShelter\trunk\bin\PagedList.Mvc.xml

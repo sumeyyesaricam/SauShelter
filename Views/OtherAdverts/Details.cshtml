@@ -19,7 +19,10 @@
                         </div>
                         <div class="block-content collapse in">
                             <div class="span12" style="padding-bottom:30px;">
-                                <img src="~/Images/@(Model.ID).jpg" style="width: 500px; height: 300px;" />
+                                @foreach (var image in ViewBag.liste)
+                                {
+                                    <img src="~/Images/@image" style="width: 500px; height: 300px;" /><br /><br />
+                                }
                             </div>
                         </div>
                     </div>

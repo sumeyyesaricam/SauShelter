@@ -228,16 +228,28 @@
                 </div>
             </div>
         </div>
-                        <div class="span5">
-                            <div class="block">
-                                <div class="navbar navbar-inner block-header">
-                                    <div class="muted pull-left"><h4>RESİM</h4></div>
-                                </div>
-                                <div class="block-content collapse in">
-                                            <input type="file" id="uploadfile" name="uploadfile" /> <br /><br />
-                                            </div>
-                                        </div>
-                                    </div>
+           <div class="span5">
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left"><h4>RESİM</h4></div>
+            </div>
+            <div class="block-content collapse in">
+                        <input type="file" class="multi" name="SecilenDosyalar" /><br /> <br /><br />
+                        <input type="submit" value="Dosyaları Aktar" />
+                        </div>
+                    </div>
+                </div>
+      
+            @*// 1. Özellik : Sınırsız dosya seçilebiliyor
+            <input type="file" class="multi" name="SecilenDosyalar" /><br />
+
+             @2. Özellik : MaxLenght özelliğine verilen değer kadar dosya seçilebiliyor.
+            <input type="file" class="multi" maxlength="2" name="SecilenDosyalar" /><br />
+
+            @*// 3. Özellik : Accept özelliğine verilen uzantı adları sayesinde dosyaları filtrelendirip, sadece belirli uzantılarda dosyalar seçilmesi sağlanabiliyor.
+            <input type="file" class="multi" accept="gif|jpg" name="SecilenDosyalar" /><br />*@
+
+            
         <div class="span5">
             <input type="submit" value="Kaydet" class="btn btn-danger" />
             <a href="/Advert/Index/@ViewBag.Kisi"><h4>Listeye Geri Dön</h4></a>

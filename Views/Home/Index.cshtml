@@ -1,4 +1,6 @@
 ﻿@model  IEnumerable<SauShelter.Models.Advert>
+@using PagedList.Mvc
+@using PagedList
 @{
     ViewBag.Title = "Home Page";
 }
@@ -76,7 +78,7 @@
                                     <tr>
                                         <th>
                                             <a href='@Url.Action("Details", "Advert", new {id=item.ID })'>
-                                                <img src="~/Images/@(item.ID).jpg" style="width: 500px; height: 200px;" />
+                                                <img src="~/Images/@(item.ID),1.jpg" style="width: 500px; height: 200px;" />
                                             </a>
                                         </th>
                                     </tr>
@@ -89,13 +91,13 @@
                                 </table>
                             </div>
                             }
+                            @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))*@
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <script type="text/javascript">
            $("#il").change(function () {
             var depid = $(this).val();

@@ -17,6 +17,7 @@ namespace SauShelter.Models
     {
         public System.Guid ID { get; set; }
         [Display(Name="Ýlan Tarihi")]
+        [Required]
         public System.DateTime ADVERTDATE { get; set; }
         [Display(Name = "Oda Sayýsý")]
         public Nullable<System.Guid> ROOMCOUNTID { get; set; }
@@ -27,14 +28,17 @@ namespace SauShelter.Models
         [Display(Name = "Açýklama")]
         public string EXPLANATION { get; set; }
         [Display(Name = "Baþlýk")]
+        [Required]
         public string TITLE { get; set; }
         [Display(Name = "Banyo Sayýsý")]
         public Nullable<int> BATHCOUNT { get; set; }
         [Display(Name = "Fiyatý")]
+        [Required]
         public Nullable<int> COST { get; set; }
         [Display(Name = "Kaç Kiþilik")]
         public Nullable<int> PERSONCOUNT { get; set; }
         [Display(Name = "Ýlan Türü")]
+        [Required]
         public System.Guid ATYPEID { get; set; }
         [Display(Name = "Balkon")]
         public Nullable<bool> BALCONY { get; set; }
@@ -51,10 +55,12 @@ namespace SauShelter.Models
         [Display(Name = "MetreKare")]
         public Nullable<int> SQUAREFEET { get; set; }
         [Display(Name = "Türü")]
+        [Required]
         public System.Guid TYPID { get; set; }
         [Display(Name = "Ýlan Sahibi")]
         public System.Guid OWNERID { get; set; }
         [Display(Name = "Ýlan Süresi")]
+        [Required]
         public Nullable<System.Guid> TIMEID { get; set; }
         [Display(Name = "Diðer")]
         public string OTHER { get; set; }
