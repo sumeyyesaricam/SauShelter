@@ -201,7 +201,7 @@ namespace SauShelter.Controllers
                 foreach (var file in SecilenDosyalar)
                 {
                     say++;
-                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID+say + ".jpg"));
+                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID +","+say + ".jpg"));
                 }
                 return RedirectToAction("Index/"+ oid);
             }
@@ -319,13 +319,14 @@ namespace SauShelter.Controllers
                             System.IO.File.Delete(Server.MapPath("~/Images/" + name));
                         }
                     }
-                  foreach (var file in SecilenDosyalar)
+                   
+                   foreach (var file in SecilenDosyalar)
                 {
                     say++;
-                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID + say + ".jpg"));
+                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID + ","+say + ".jpg"));
                 }
-                }
-                
+                   }
+                              
                 advert.OWNERID = oid;
                 db.Entry(advert).State = EntityState.Modified;
                 db.SaveChanges();

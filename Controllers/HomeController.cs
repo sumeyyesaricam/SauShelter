@@ -12,7 +12,7 @@ namespace SauShelter.Controllers
     {
         SauShelterEntities ilan = new SauShelterEntities();
         turkiyeEntities te = new turkiyeEntities();
-        public ActionResult Index(Guid? id, string currentFilter, string AdvertName, int? EnDusuk, int? EnYuksek, Guid? OdaSayisi, int? Sehir, int? Ilce, int page = 1, int pageSize=10)
+        public ActionResult Index(Guid? id, string currentFilter, string AdvertName, int? EnDusuk, int? EnYuksek, Guid? OdaSayisi, int? Sehir, int? Ilce, int page = 1, int pageSize=2)
         {
             if (AdvertName != null)
             {
