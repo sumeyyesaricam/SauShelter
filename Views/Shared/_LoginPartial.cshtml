@@ -1,24 +1,13 @@
-﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+﻿@if (@Session["user_id"] == null || @Session["user_id"] == ("00000000-0000-0000-0000-000000000000"))
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Merhaba " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
-    }
+    @Html.ActionLink("Üye Ol", "Register", "Insiders")
+    @: |
+    @Html.ActionLink("Giriş Yap", "Login", "Insiders")
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@using (Html.BeginForm("Create", "Advert", FormMethod.Post, new { id = "Id", @class = "form-horizontal" }))
-        {<button class="btn btn-danger btn-large">İlan Ver</button>}</li>
-        <li>@Html.ActionLink("Giriş Yap", "Login", "Insiders", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        <li>@Html.ActionLink("Üye Ol", "Create", "Insiders", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>       
-    </ul>
+    @: Hoşegeldin <b></b>!
+
+    @: |
+    @Html.ActionLink("Çıkış Yap", "LogOff", "Insiders")
 }

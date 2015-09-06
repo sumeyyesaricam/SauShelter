@@ -169,17 +169,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsidersController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\LogAttribute.cs" />
     <Compile Include="Controllers\OtherAdvertsController.cs" />
-    <Compile Include="Controllers\ShelterModelsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\OwnersConfiguration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>SauShelterModel.tt</DependentUpon>
@@ -244,7 +241,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SauShelterModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\ShelterModel.cs" />
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>SauShelterModel.tt</DependentUpon>
     </Compile>
@@ -1561,24 +1557,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\OtherAdverts\Create.cshtml" />
@@ -1586,19 +1564,10 @@
     <Content Include="Views\OtherAdverts\Edit.cshtml" />
     <Content Include="Views\OtherAdverts\HomeIndex.cshtml" />
     <Content Include="Views\Shared\SideBar.cshtml" />
-    <Content Include="Views\ShelterModels\Create.cshtml" />
-    <Content Include="Views\ShelterModels\Delete.cshtml" />
-    <Content Include="Views\ShelterModels\Details.cshtml" />
-    <Content Include="Views\ShelterModels\Edit.cshtml" />
-    <Content Include="Views\ShelterModels\Index.cshtml" />
+    <Content Include="Views\Insiders\Register.cshtml" />
     <Content Include="Views\Advert\Create.cshtml" />
     <Content Include="Views\Advert\Details.cshtml" />
     <Content Include="Views\Advert\Edit.cshtml" />
-    <Content Include="Views\Insiders\Create.cshtml" />
-    <Content Include="Views\Insiders\Delete.cshtml" />
-    <Content Include="Views\Insiders\Details.cshtml" />
-    <Content Include="Views\Insiders\Edit.cshtml" />
-    <Content Include="Views\Insiders\Index.cshtml" />
     <Content Include="Views\Insiders\Login.cshtml" />
     <Content Include="Views\Advert\Message.cshtml" />
     <Content Include="Views\OtherAdverts\Index.cshtml" />

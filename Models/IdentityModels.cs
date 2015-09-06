@@ -30,6 +30,5 @@ namespace SauShelter.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<SauShelter.Models.ShelterModel> ShelterModels { get; set; }
     }
 }

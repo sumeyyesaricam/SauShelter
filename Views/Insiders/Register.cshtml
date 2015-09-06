@@ -1,22 +1,22 @@
 ﻿@model SauShelter.Models.Insider
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Üye Ol</h2>
 
 @using (Html.BeginForm())
 {
+    @Html.Hidden("secimil")
+    @Html.Hidden("secimilce")
+    @Html.Hidden("secimMahalle")
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Insider</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-
         <div class="form-group">
             @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -39,6 +39,8 @@
             </div>
         </div>
 
+        
+
         <div class="form-group">
             @Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,61 +50,57 @@
         </div>
 
         <div class="form-group">
-    @Html.LabelFor(model => model.CONFIRMPASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.CONFIRMPASSWORD, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.CONFIRMPASSWORD, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BIRTHDATE, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CONFIRMPASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BIRTHDATE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BIRTHDATE, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CONFIRMPASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CONFIRMPASSWORD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PHONENUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PHONENUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PHONENUMBER, "", new { @class = "text-danger" })
             </div>
         </div>
 
-          <div id="formKapsayici">
-            <h3>İletişim Bilgileri</h3>
-            <div id="divSol">
-                @Html.LabelFor(i => Model.Address.CITYID)<br /><br />
-                @Html.LabelFor(i => Model.Address.TOWNID)<br /><br />
-                @Html.LabelFor(i => Model.Address.DISTRICTID)<br /><br />
-
+        <div class="span5">
+            <div class="block">
+                <div class="navbar navbar-inner block-header">
+                    <div class="muted pull-left"><h4>ADRES BİLGİLERİ</h4></div>
+                </div>
+                <div class="block-content collapse in">
+                    <div class="span12" style="padding-bottom:30px;">
+                        <div class="form-group">
+                            <div id="divSol">
+                                @Html.LabelFor(i => Model.Address.CITYID)<br /><br />
+                                @Html.LabelFor(i => Model.Address.TOWNID)<br /><br />
+                                @Html.LabelFor(i => Model.Address.DISTRICTID)<br /><br />
+                                @Html.Label("ADRES")
+                            </div>
+                            <div id="divSag">
+                                <select id="il" name="il">
+                                    @foreach (var item in ViewBag.City)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select><br /><br />
+                                <select id="ilce"></select><br /><br />
+                                <select id="mahalle"></select><br /><br />
+                                @Html.TextArea("Acıklama", new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="divSag">
-                <select id="il" name="il">
-                    @foreach (var item in ViewBag.City)
-                    {
-                        <option value="@item.Value">@item.Text</option>
-                    }
-                </select><br /><br />
-                <select id="ilce"></select><br /><br />
-                <select id="mahalle"></select><br /><br />
-            </div>
-
-            <div id="divSSol">
-                @Html.LabelFor(i => Model.PHONENUMBER)<br /><br />
-                @Html.ValidationMessageFor(model => model.PHONENUMBER, "", new { @class = "text-danger" })
-                @Html.LabelFor(i => Model.Address.EXPLANATION)<br /><br />
-            </div>
-
-            <div id="divSSag">
-                : @Html.TextBoxFor(i => Model.PHONENUMBER)<br /><br />
-                : @Html.TextArea("Acıklama")<br /><br />
-            </div>
-            <!--Html.ValidationSummary ile formda oluşan geçerlilik hatalarını liste halinde gösterebiliyoruz.-->
-            @Html.ValidationSummary()
-        </div><br />
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Kaydet" class="btn btn-danger" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
 @section scripts{
     <style type="text/css">
         #formKapsayici {
@@ -136,7 +134,7 @@
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script type="text/javascript">
-           $("#il").change(function () {
+        $("#il").change(function () {
             var depid = $(this).val();
             $('#secimil').val(depid);
             if (depid.length > 0) {
@@ -163,6 +161,6 @@
         $("#mahalle").change(function () {
             var depid = $(this).val();
             $('#secimMahalle').val(depid);
-         });
+        });
     </script>
 }

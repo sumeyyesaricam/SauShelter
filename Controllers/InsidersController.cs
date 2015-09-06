@@ -21,116 +21,41 @@ namespace SauShelter.Controllers
     {
         private SauShelterEntities db = new SauShelterEntities();
         private turkiyeEntities te = new turkiyeEntities();
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        public InsidersController()
-        {
-        }
-
-        public InsidersController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-        // GET: Insiders
-        public ActionResult Index()
-        {
-            var insider = db.Insider.Include(i => i.Address);
-            return View(insider.ToList());
-        }
-
-        // GET: Insiders/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Insider insider = db.Insider.Find(id);
-            if (insider == null)
-            {
-                return HttpNotFound();
-            }
-            return View(insider);
-        }
+       
         public ActionResult Login()
         {
-            return View();
+            if (Session["user_id"] == null || Session["user_id"] == ("00000000-0000-0000-0000-000000000000"))
+                return View();
+            else
+                return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        public async Task<ActionResult> Login(Insider imodel, LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(Insider insider)
         {
-            bool kontrol = false;
-            bool kontrol1 = false;
-            foreach (var item in db.Insider)
-            {
-                if (item.EMAIL == imodel.EMAIL)
+            var insiders=db.Insider;
+            Insider model = new Insider();
+            foreach (var item in insiders)
                 {
-                    kontrol = true;
-                    imodel.ID = item.ID;
-                    if (item.PASSWORD == imodel.PASSWORD)
-                        kontrol1 = true;
+                    if (item.EMAIL == insider.EMAIL)
+                    {
+                        if (item.PASSWORD == insider.PASSWORD)
+                        {
+                            model.ID = item.ID;
+                        }
+                    }
                 }
-            }
-            if (!kontrol)
+            var modelid = model.ID;
+            var st = modelid.ToString();
+            if (st == "00000000-0000-0000-0000-000000000000" || modelid == null)
             {
-                ViewBag.EMesage = "Sistemimizde bu e-posta adresi ve şifre ile kayıtlı üye bulunmamaktadır.";
+                ViewBag.Mesaj = "Girdiğiniz kullanıcı adı yada şifre hatalı.";
+                return View();
             }
-            if (kontrol && !kontrol1)
+            else
             {
-                ViewBag.PMesage = "Şifreniz yanlış";
+                Session["user_id"] = modelid;
+                return RedirectToAction("Index", "Home");
             }
-            if (kontrol && kontrol1)
-            {
-                imodel.GENDER = true;
-                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-                switch (result)
-                {
-                    case SignInStatus.Success:
-                        return RedirectToAction("Index", "Advert", new { id = imodel.ID });
-                    case SignInStatus.LockedOut:
-                        return View("Lockout");
-                    case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                    case SignInStatus.Failure:
-                    default:
-                        ModelState.AddModelError("", "Invalid login attempt.");
-                        return RedirectToAction("Index", "Advert", new { id = imodel.ID });
-                }
-            }
-            return View(model);
         }
              private ActionResult RedirectToLocal(string returnUrl)
         {
@@ -141,7 +66,7 @@ namespace SauShelter.Controllers
             return RedirectToAction("Index", "Home");
         }
         // GET: Insiders/Create
-        public ActionResult Create(string City,string townn,string dstrct)
+             public ActionResult Register(string City, string townn, string dstrct)
         {
             var city = te.tbl_il;
             ViewBag.City = new SelectList(city, "il_id", "il_ad", City);
@@ -158,7 +83,7 @@ namespace SauShelter.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<ActionResult> Create(RegisterViewModel model,string Acıklama, int? secimil, int? secimilce, int? secimMahalle, [Bind(Include = "ID,NAME,EMAIL,PHONENUMBER,PASSWORD,BIRTHDATE,GENDER,ADDRESSID,SURNAME,CONFIRMPASSWORD")] Insider insider)
+        public async Task<ActionResult> Register(RegisterViewModel model,string Acıklama, int? secimil, int? secimilce, int? secimMahalle, [Bind(Include = "ID,NAME,EMAIL,PHONENUMBER,PASSWORD,BIRTHDATE,GENDER,ADDRESSID,SURNAME,CONFIRMPASSWORD")] Insider insider)
         {
             var city = te.tbl_il;
             ViewBag.City = new SelectList(city, "il_id", "il_ad");
@@ -170,10 +95,7 @@ namespace SauShelter.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                
                 insider.ID = Guid.NewGuid();
                     Address adres = new Address();
                     if(secimil!=null || secimilce!=null || secimMahalle!=null)
@@ -188,59 +110,16 @@ namespace SauShelter.Controllers
                     }               
                 db.Insider.Add(insider);               
                 db.SaveChanges();
+                Session["user_id"] = insider.ID;
                 return RedirectToAction("Index", "Advert", new { insertid = insider.ID });
-            }
-                AddErrors(result);
             }
             return View();
         }
-
-        // GET: Insiders/Edit/5
-        public ActionResult Edit(Guid? id, string City, string townn, string dstrct)
+        public ActionResult LogOff()
         {
-            var city = te.tbl_il;
-            ViewBag.City = new SelectList(city, "il_id", "il_ad", City);
-            var town = te.tbl_ilce;
-            ViewBag.townn = new SelectList(town, "ilce_id", "ilce_ad", townn);
-            var district = te.tbl_mahalle;
-            ViewBag.dstrct = new SelectList(district, "mahalle_id", "mahalle_ad", dstrct);
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Insider insider = db.Insider.Find(id);
-            if (insider == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ADDRESSID = new SelectList(db.Address, "ID", "EXPLANATION", insider.ADDRESSID);
-            return View(insider);
+            Session["user_id"] = null;
+            return RedirectToAction("Index", "Home");
         }
-
-        // POST: Insiders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(string City,string townn,string dstrct,[Bind(Include = "ID,NAME,EMAIL,PHONENUMBER,PASSWORD,BIRTHDATE,GENDER,ADDRESSID,SURNAME,CONFIRMPASSWORD")] Insider insider)
-        {
-            var city = te.tbl_il;
-            ViewBag.City = new SelectList(city, "il_id", "il_ad", City);
-            var town = te.tbl_ilce;
-            ViewBag.townn = new SelectList(town, "ilce_id", "ilce_ad", townn);
-            var district = te.tbl_mahalle;
-            ViewBag.dstrct = new SelectList(district, "mahalle_id", "mahalle_ad", dstrct);
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(insider).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ADDRESSID = new SelectList(db.Address, "ID", "EXPLANATION", insider.ADDRESSID);
-            return View(insider);
-        }
-
         public ActionResult GetirIlceler(string id)
         {
             var ilceler=te.tbl_ilce.Where(ilce=>ilce.il_id.ToString()==id)
@@ -261,32 +140,7 @@ namespace SauShelter.Controllers
                 }).ToList();
             return Json(mahalleler, JsonRequestBehavior.AllowGet);
         }
-        // GET: Insiders/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Insider insider = db.Insider.Find(id);
-            if (insider == null)
-            {
-                return HttpNotFound();
-            }
-            return View(insider);
-        }
-
-        // POST: Insiders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            Insider insider = db.Insider.Find(id);
-            db.Insider.Remove(insider);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)

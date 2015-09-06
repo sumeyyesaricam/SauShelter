@@ -17,28 +17,32 @@ using System.Threading.Tasks;
 
 namespace SauShelter.Controllers
 {
-    [Authorize]
+    [Log]
     public class AdvertController : Controller
     {
         private SauShelterEntities db = new SauShelterEntities();
         private turkiyeEntities te = new turkiyeEntities();
         // GET: Advert
         int say = 0;
+
+        [Log]
         public ActionResult Index(Guid? id)
         {
             var advert = db.Advert.Include(a => a.Address).Include(a => a.AdvertType).Include(a => a.ApartmentFloor).Include(a => a.DeliveryTime).Include(a => a.Heating).Include(a => a.Insider).Include(a => a.RoomCount).Include(a => a.Type);
-            var ilan=advert.ToList().Where(i => i.OWNERID == id);
+            var ilan = advert.ToList().Where(i => i.OWNERID == id);
             if (ilan.Count() == 0)
                 ViewBag.ilanmsj = "Size ait ilan bulunmamaktadır.";
             return View(ilan);
         }
+
         [AllowAnonymous]
         public ActionResult Message()
         {
             return View();
         }
+
         [AllowAnonymous]
-          [HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Message(string mail, string konu, string ileti)
         {
             var message = new MailMessage();
@@ -62,19 +66,18 @@ namespace SauShelter.Controllers
                 await smtp.SendMailAsync(message);
                 return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
         public string Gonderildi()
         {
             return "İletiniz başarıyla gönderildi";
         }
 
-        // GET: Advert/Details/5
         [AllowAnonymous]
         public ActionResult Details(Guid? id)
         {
-            
-           if (id == null)
+
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -82,21 +85,21 @@ namespace SauShelter.Controllers
             List<String> rsmlist = new List<string>();
             var images = Server.MapPath("/Images");
             DirectoryInfo di = new DirectoryInfo(images);
-             FileInfo[] rgFiles = di.GetFiles();
-             foreach (var rsm in rgFiles)
+            FileInfo[] rgFiles = di.GetFiles();
+            foreach (var rsm in rgFiles)
             {
                 string name = rsm.Name;
-                var isim=rsm.Name.Split(',');
-                if(isim[0].ToString()==advert.ID.ToString())
+                var isim = rsm.Name.Split(',');
+                if (isim[0].ToString() == advert.ID.ToString())
                 {
                     rsmlist.Add(name);
                 }
             }
-             ViewBag.liste = rsmlist;    
+            ViewBag.liste = rsmlist;
 
-            foreach(var adrs in db.Address)
+            foreach (var adrs in db.Address)
             {
-                if(adrs.ID==advert.ADDRESSID)
+                if (adrs.ID == advert.ADDRESSID)
                 {
                     foreach (var drs in te.tbl_il)
                     {
@@ -123,7 +126,7 @@ namespace SauShelter.Controllers
             return View(advert);
         }
 
-        // GET: Advert/Create
+        [Log]
         public ActionResult Create()
         {
             var city = te.tbl_il;
@@ -132,11 +135,6 @@ namespace SauShelter.Controllers
             ViewBag.townn = new SelectList(town, "ilce_id", "ilce_ad");
             var district = te.tbl_mahalle;
             ViewBag.dstrct = new SelectList(district, "mahalle_id", "mahalle_ad");
-            foreach (var insider in db.Insider)
-            {
-                if (insider.EMAIL == User.Identity.Name)
-                          ViewBag.Kisi = insider.ID;
-            }
             ViewBag.ADDRESSID = new SelectList(db.Address, "ID", "EXPLANATION");
             ViewBag.ATYPEID = new SelectList(db.AdvertType, "ID", "NAME");
             ViewBag.FLOORID = new SelectList(db.ApartmentFloor, "ID", "NAME");
@@ -156,9 +154,7 @@ namespace SauShelter.Controllers
             return View();
         }
 
-        // POST: Advert/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Log]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IEnumerable<HttpPostedFileBase> SecilenDosyalar, string Acıklama, int? secimil, int? secimilce, int? secimMahalle, [Bind(Include = "ID,ADVERTDATE,ROOMCOUNTID,FLOORID,HEATINGID,EXPLANATION,TITLE,BATHCOUNT,COST,PERSONCOUNT,ATYPEID,BALCONY,GARDEN,CONSTRUCTIONDATE,ADDRESSID,MONTHLYFEE,FULLYFURNISHED,SQUAREFEET,TYPID,OWNERID,TIMEID,OTHER")] Advert advert)
@@ -169,7 +165,7 @@ namespace SauShelter.Controllers
             ViewBag.townn = new SelectList(town, "ilce_id", "ilce_ad");
             var district = te.tbl_mahalle;
             ViewBag.dstrct = new SelectList(district, "mahalle_id", "mahalle_ad");
-            Guid oid=Guid.NewGuid();
+            Guid oid = Guid.NewGuid();
             Address adres = new Address();
             if (secimil != null || secimilce != null || secimMahalle != null)
             {
@@ -181,12 +177,12 @@ namespace SauShelter.Controllers
                 advert.ADDRESSID = adres.ID;
                 db.Address.Add(adres);
             }
-            
+
             if (ModelState.IsValid)
             {
-                advert.ADVERTDATE =  DateTime.Today.AddDays(+1);
+                advert.ADVERTDATE = DateTime.Today.AddDays(+1);
                 advert.ID = Guid.NewGuid();
-                foreach(var insider in db.Insider)
+                foreach (var insider in db.Insider)
                 {
                     if (insider.EMAIL == User.Identity.Name)
                     {
@@ -194,16 +190,16 @@ namespace SauShelter.Controllers
                         ViewBag.Telefon = insider.PHONENUMBER;
                         ViewBag.AID = insider.ID;
                     }
-                }                
+                }
                 advert.OWNERID = oid;
                 db.Advert.Add(advert);
                 db.SaveChanges();
                 foreach (var file in SecilenDosyalar)
                 {
                     say++;
-                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID +","+say + ".jpg"));
+                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID + "," + say + ".jpg"));
                 }
-                return RedirectToAction("Index/"+ oid);
+                return RedirectToAction("Index/" + oid);
             }
 
             ViewBag.ADDRESSID = new SelectList(db.Address, "ID", "EXPLANATION", advert.ADDRESSID);
@@ -217,8 +213,7 @@ namespace SauShelter.Controllers
             return View(advert);
         }
 
-        // GET: Advert/Edit/5
-
+        [Log]
         public ActionResult Edit(Guid? id)
         {
             var city = te.tbl_il;
@@ -232,7 +227,7 @@ namespace SauShelter.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Advert advert = db.Advert.Find(id);
-             foreach (var adrs in db.Address)
+            foreach (var adrs in db.Address)
             {
                 if (adrs.ID == advert.ADDRESSID)
                 {
@@ -268,9 +263,7 @@ namespace SauShelter.Controllers
             return View(advert);
         }
 
-        // POST: Advert/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Log]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(IEnumerable<HttpPostedFileBase> SecilenDosyalar, string Acıklama, int? secimil, int? secimilce, int? secimMahalle, [Bind(Include = "ID,ADVERTDATE,ROOMCOUNTID,FLOORID,HEATINGID,EXPLANATION,TITLE,BATHCOUNT,COST,PERSONCOUNT,ATYPEID,BALCONY,GARDEN,CONSTRUCTIONDATE,ADDRESSID,MONTHLYFEE,FULLYFURNISHED,SQUAREFEET,TYPID,OWNERID,TIMEID,OTHER")] Advert advert)
@@ -305,7 +298,7 @@ namespace SauShelter.Controllers
                     advert.ADDRESSID = adres.ID;
                     db.Address.Add(adres);
                 }
-                if(SecilenDosyalar!=null)
+                if (SecilenDosyalar != null)
                 {
                     var images = Server.MapPath("/Images");
                     DirectoryInfo di = new DirectoryInfo(images);
@@ -319,14 +312,14 @@ namespace SauShelter.Controllers
                             System.IO.File.Delete(Server.MapPath("~/Images/" + name));
                         }
                     }
-                   
-                   foreach (var file in SecilenDosyalar)
-                {
-                    say++;
-                    file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID + ","+say + ".jpg"));
+
+                    foreach (var file in SecilenDosyalar)
+                    {
+                        say++;
+                        file.SaveAs(HttpContext.Server.MapPath("~/Images/" + advert.ID + "," + say + ".jpg"));
+                    }
                 }
-                   }
-                              
+
                 advert.OWNERID = oid;
                 db.Entry(advert).State = EntityState.Modified;
                 db.SaveChanges();
@@ -343,8 +336,9 @@ namespace SauShelter.Controllers
             ViewBag.TYPID = new SelectList(db.Type, "ID", "NAME", advert.TYPID);
             return View(advert);
         }
-
-               [ValidateAntiForgeryToken]
+        
+        [Log]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(Guid? did)
         {
             Guid oid = Guid.NewGuid();
@@ -363,7 +357,7 @@ namespace SauShelter.Controllers
                     System.IO.File.Delete(Server.MapPath("~/Images/" + name));
                 }
             }
-                        
+
             db.SaveChanges();
             return RedirectToAction("Index/" + oid);
         }
